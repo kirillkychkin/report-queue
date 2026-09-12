@@ -1,0 +1,73 @@
+# Инфраструктура и сервисы демо-проекта.
+# Stage 0: работают только redis и rabbitmq (`docker compose up -d redis rabbitmq`).
+# Сервисы api / worker-* / beat / flower подключаются на этапах 2–4 по мере появления кода.
+
+x-app: &app
+  build: .
+  env_file: .env
+  volumes:
+    - artifacts:/data/artifacts
+  depends_on:
+    redis:
+      condition: service_healthy
+    rabbitmq:
+      condition: service_healthy
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports:
+      - "5672:5672"    # AMQP
+      - "15672:15672"  # Management UI (guest/guest)
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # --- Приложение (активируется на Stage 4) ---
+  api:
+    <<: *app
+    ports:
+      - "8000:8000"
+    profiles: ["app"]
+
+  # --- Celery (Stage 2) ---
+  worker-celery:
+    <<: *app
+    command: >
+      celery -A app.tasks.celery_app worker
+      --loglevel=info --concurrency=1 --queues=reports,notifications
+    profiles: ["celery"]
+
+  beat:
+    <<: *app
+    command: celery -A app.tasks.celery_app beat --loglevel=info
+    profiles: ["celery"]
+
+  flower:
+    <<: *app
+    command: celery -A app.tasks.celery_app flower --port=5555
+    ports:
+      - "5555:5555"
+    profiles: ["celery"]
+
+  # --- RQ (Stage 3) ---
+  worker-rq:
+    <<: *app
+    command: python -m app.tasks.rq_app worker
+    profiles: ["rq"]
+
+volumes:
+  artifacts:

@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+
+# Env / secrets
+.env
+
+# Артефакты отчётов (генерируются воркерами)
+artifacts/
+
+# Слайды — генерируемые бинарники коммитим намеренно (сдаются преподавателю),
+# но не промежуточные файлы
+slides/*.tmp
+~$*.pptx
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

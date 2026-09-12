@@ -19,7 +19,7 @@ celery = Celery(
     "report_queue",
     broker=settings.broker_url,
     backend=settings.redis_url,
-    include=["app.tasks.celery_tasks"],
+    include=["app.tasks.celery_tasks", "bench.tasks"],
 )
 
 celery.conf.update(

@@ -10,6 +10,10 @@ x-app: &app
   # Пустой блок обязателен: без него `docker compose run -e` падает (баг Compose 2.34, nil map)
   environment:
     PYTHONPATH: /app
+    # Переменная хоста имеет приоритет над .env — так bench/run_matrix.py переключает брокер
+    BROKER_URL: ${BROKER_URL:-redis://redis:6379/0}
+    TASK_BACKEND: ${TASK_BACKEND:-celery}
+    RQ_WORKER_CLASS: ${RQ_WORKER_CLASS:-fork}
   volumes:
     - artifacts:/data/artifacts
   depends_on:

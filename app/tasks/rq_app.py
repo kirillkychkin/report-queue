@@ -16,7 +16,7 @@ import random
 import sys
 
 from redis import Redis
-from rq import Queue, Retry, Worker, get_current_job
+from rq import Queue, Retry, SimpleWorker, Worker, get_current_job
 from rq.job import Job
 
 from app.core.config import get_settings
@@ -119,10 +119,17 @@ def enqueue_report_with_notification(
 
 
 def run_worker(queues: list[str] | None = None) -> None:
-    """Воркер слушает обе очереди; планировщик нужен для отложенных повторов Retry."""
+    """Воркер слушает обе очереди; планировщик нужен для отложенных повторов Retry.
+
+    Worker (по умолчанию) форкает процесс на каждую задачу: утечки памяти и падения
+    изолированы, но fork стоит десятки миллисекунд. SimpleWorker выполняет задачи
+    в своём процессе — аналог Celery с --pool=solo. Выбор — RQ_WORKER_CLASS.
+    """
     connection = get_redis()
     names = queues or [QUEUE_REPORTS, QUEUE_NOTIFICATIONS]
-    worker = Worker([Queue(n, connection=connection) for n in names], connection=connection)
+    worker_cls = SimpleWorker if get_settings().rq_worker_class == "simple" else Worker
+    log.info("starting %s on queues %s", worker_cls.__name__, names)
+    worker = worker_cls([Queue(n, connection=connection) for n in names], connection=connection)
     worker.work(with_scheduler=True)
 
 

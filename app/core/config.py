@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     artifacts_dir: Path = Path("./artifacts")
     # Вероятность сбоя задачи уведомления (демонстрация retry)
     notify_failure_rate: float = 0.5
+    # Класс воркера RQ: fork — процесс на задачу (изоляция), simple — в том же процессе (быстрее)
+    rq_worker_class: Literal["fork", "simple"] = "fork"
 
 
 @lru_cache

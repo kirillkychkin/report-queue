@@ -54,12 +54,17 @@ def plot_throughput(df: pd.DataFrame) -> None:
     axes = axes[0]
     for ax, kind in zip(axes, kinds):
         data = sub[sub["kind"] == kind]
+        placed: list[float] = []
+        span = data["throughput"].max() or 1
         for config, g in data.groupby("config", observed=True):
             g = g.sort_values("workers")
             ax.plot(g["workers"], g["throughput"], marker="o", lw=2, ms=6, color=COLORS[config])
             last = g.iloc[-1]
-            ax.annotate(f"{last['throughput']:.0f}", (last["workers"], last["throughput"]),
-                        textcoords="offset points", xytext=(6, 0), fontsize=8, color="#52514e", va="center")
+            # подпись только если не сливается с уже поставленной (ближе 5 % диапазона)
+            if all(abs(last["throughput"] - y) > 0.05 * span for y in placed):
+                ax.annotate(f"{last['throughput']:.0f}", (last["workers"], last["throughput"]),
+                            textcoords="offset points", xytext=(6, 0), fontsize=8, color="#52514e", va="center")
+                placed.append(last["throughput"])
         ax.set_title(KIND_TITLE[kind], fontsize=10)
         ax.set_xlabel("воркеров")
         ax.set_xticks([1, 2, 4])
@@ -91,9 +96,10 @@ def plot_latency(df: pd.DataFrame) -> None:
         ax.set_xticks(range(len(workers)), [f"{w} воркер{'а' if w > 1 else ''}" for w in workers])
         ax.set_title(f"Задержка {title}, мс (log)", fontsize=10)
         ax.set_yscale("log")
-    axes[0].legend(fontsize=8, loc="upper right")
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", ncol=4, fontsize=9, bbox_to_anchor=(0.5, 0.0))
     fig.suptitle("noop, N = 1000: задержка от постановки до завершения", fontsize=12, fontweight="bold")
-    fig.tight_layout(rect=(0, 0, 1, 0.93))
+    fig.tight_layout(rect=(0, 0.07, 1, 0.93))
     fig.savefig(RESULTS / "latency.png", dpi=150)
     plt.close(fig)
 

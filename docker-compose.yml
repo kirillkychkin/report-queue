@@ -1,6 +1,7 @@
 # Инфраструктура и сервисы демо-проекта.
-# Stage 0: работают только redis и rabbitmq (`docker compose up -d redis rabbitmq`).
-# Сервисы api / worker-* / beat / flower подключаются на этапах 2–4 по мере появления кода.
+# `docker compose up --build` поднимает всё: брокеры, API, воркеры Celery и RQ, beat, Flower.
+# Масштабирование воркеров: docker compose up -d --scale worker-celery=4
+# Переключение бэкенда/брокера — TASK_BACKEND / BROKER_URL в .env (затем `up -d api`).
 
 x-app: &app
   build: .
@@ -40,25 +41,27 @@ services:
       timeout: 5s
       retries: 10
 
-  # --- Приложение (активируется на Stage 4) ---
+  # --- Приложение ---
   api:
     <<: *app
     ports:
       - "8000:8000"
-    profiles: ["app"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
 
-  # --- Celery (Stage 2) ---
+  # --- Celery ---
   worker-celery:
     <<: *app
     command: >
       celery -A app.tasks.celery_app worker
       --loglevel=info --concurrency=1 --queues=reports,notifications
-    profiles: ["celery"]
 
   beat:
     <<: *app
     command: celery -A app.tasks.celery_app beat --loglevel=info
-    profiles: ["celery"]
 
   flower:
     <<: *app
@@ -68,13 +71,11 @@ services:
       FLOWER_UNAUTHENTICATED_API: "true"  # REST API Flower без логина (демо/бенчмарк)
     ports:
       - "5555:5555"
-    profiles: ["celery"]
 
-  # --- RQ (Stage 3) ---
+  # --- RQ ---
   worker-rq:
     <<: *app
     command: python -m app.tasks.rq_app reports notifications
-    profiles: ["rq"]
 
 volumes:
   artifacts:

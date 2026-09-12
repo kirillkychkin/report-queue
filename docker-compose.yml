@@ -4,6 +4,7 @@
 
 x-app: &app
   build: .
+  image: report-queue:local   # один образ для всех сервисов приложения
   env_file: .env
   # Пустой блок обязателен: без него `docker compose run -e` падает (баг Compose 2.34, nil map)
   environment:
@@ -62,6 +63,9 @@ services:
   flower:
     <<: *app
     command: celery -A app.tasks.celery_app flower --port=5555
+    environment:
+      PYTHONPATH: /app
+      FLOWER_UNAUTHENTICATED_API: "true"  # REST API Flower без логина (демо/бенчмарк)
     ports:
       - "5555:5555"
     profiles: ["celery"]

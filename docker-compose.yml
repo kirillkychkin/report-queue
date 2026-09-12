@@ -5,6 +5,9 @@
 x-app: &app
   build: .
   env_file: .env
+  # Пустой блок обязателен: без него `docker compose run -e` падает (баг Compose 2.34, nil map)
+  environment:
+    PYTHONPATH: /app
   volumes:
     - artifacts:/data/artifacts
   depends_on:

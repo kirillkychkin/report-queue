@@ -73,7 +73,7 @@ services:
   # --- RQ (Stage 3) ---
   worker-rq:
     <<: *app
-    command: python -m app.tasks.rq_app worker
+    command: python -m app.tasks.rq_app reports notifications
     profiles: ["rq"]
 
 volumes:

@@ -50,7 +50,7 @@ app/tasks/
 scripts/produce.py   ручной продьюсер: single | pipeline | batch, --backend celery|rq
 bench/          эксперимент (см. docs/experiment.md)
 docs/           архитектура, эксперимент, выводы, сценарий демо
-slides/         презентации
+slides/         презентации: content/*.md (тексты) + builder.py (рендер) → talk.pptx, project.pptx
 tests/unit      домен, задачи (eager), нормализация статусов    →  .venv/Scripts/python -m pytest tests/unit
 tests/integration   API против запущенного compose               →  .venv/Scripts/python -m pytest tests/integration
 ```
@@ -72,3 +72,14 @@ docker compose exec -e BROKER_URL=amqp://guest:guest@rabbitmq:5672// worker-cele
 - `docs/experiment.md` — эксперимент: Celery vs RQ, Redis vs RabbitMQ
 - `docs/conclusions.md` — выводы: когда применять, плюсы, ограничения
 - `docs/demo.md` — сценарий 5-минутной демонстрации
+
+## Презентации
+
+`slides/talk.pptx` — доклад (10–15 мин, 20 слайдов), `slides/project.pptx` — демонстрация проекта (5 мин, 9 слайдов).
+Тексты слайдов и заметки докладчика лежат в `slides/content/*.md`, оформление — в `slides/builder.py`; графики
+подтягиваются из `bench/results/`. Пересборка после правки текстов:
+
+```bash
+.venv/Scripts/python slides/build_talk.py
+.venv/Scripts/python slides/build_project.py
+```

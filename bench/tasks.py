@@ -3,6 +3,9 @@
 Результат каждой задачи (timestamps) пишется напрямую в Redis-список
 `bench:results:<run_id>` — независимо от фреймворка, чтобы сборщик метрик
 был один и тот же и не зависел от особенностей result backend.
+Список живёт на ОТДЕЛЬНОМ Redis (RESULT_BACKEND_URL), чтобы запись метрик
+не нагружала брокер: иначе конфигурация «Celery + Redis» получает лишнюю работу,
+которой нет у «Celery + RabbitMQ», и сравнение брокеров перестаёт быть честным.
 Все контейнеры работают на одном хосте, поэтому time.time() сравним.
 """
 
@@ -31,7 +34,7 @@ def results_key(run_id: str) -> str:
 
 @lru_cache
 def _redis() -> Redis:
-    return Redis.from_url(get_settings().redis_url)
+    return Redis.from_url(get_settings().result_backend)
 
 
 def work(kind: str) -> None:

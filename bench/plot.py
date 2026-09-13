@@ -18,11 +18,18 @@ RESULTS = Path(__file__).parent / "results"
 SUMMARY = RESULTS / "summary.csv"
 
 # Цвет закреплён за конфигурацией (не за позицией в легенде)
-CONFIG_ORDER = ["celery-redis", "celery-rabbitmq", "rq-redis", "rq-simple-redis"]
-COLORS = {"celery-redis": "#2a78d6", "celery-rabbitmq": "#eb6834", "rq-redis": "#1baf7a", "rq-simple-redis": "#eda100"}
+CONFIG_ORDER = ["celery-redis", "celery-rabbitmq", "celery-rabbitmq-confirm", "rq-redis", "rq-simple-redis"]
+COLORS = {
+    "celery-redis": "#2a78d6",
+    "celery-rabbitmq": "#eb6834",
+    "celery-rabbitmq-confirm": "#a2452a",
+    "rq-redis": "#1baf7a",
+    "rq-simple-redis": "#eda100",
+}
 LABELS = {
     "celery-redis": "Celery + Redis",
     "celery-rabbitmq": "Celery + RabbitMQ",
+    "celery-rabbitmq-confirm": "Celery + RabbitMQ (confirms)",
     "rq-redis": "RQ (fork) + Redis",
     "rq-simple-redis": "RQ (SimpleWorker) + Redis",
 }
@@ -47,8 +54,11 @@ def _legend(ax, configs):
 
 
 def plot_throughput(df: pd.DataFrame) -> None:
-    """Пропускная способность vs число воркеров — по одному полю на вид задачи (N=1000)."""
-    sub = df[df["n"] == 1000]
+    """Пропускная способность vs число воркеров — по одному полю на вид задачи.
+
+    Очередь наполняется заранее, поэтому это скорость разбора очереди, а не скорость продьюсера.
+    """
+    sub = df
     kinds = [k for k in ("noop", "cpu_small", "io_sleep") if k in set(sub["kind"])]
     fig, axes = plt.subplots(1, len(kinds), figsize=(4.6 * len(kinds), 4), sharex=True, squeeze=False)
     axes = axes[0]
@@ -71,35 +81,41 @@ def plot_throughput(df: pd.DataFrame) -> None:
         ax.set_ylim(bottom=0)
     axes[0].set_ylabel("задач / с")
     _legend(axes[0], list(sub["config"].cat.categories))
-    fig.suptitle("Пропускная способность (N = 1000 задач, медиана 3 повторов)", fontsize=12, fontweight="bold")
+    fig.suptitle("Пропускная способность: разбор заранее наполненной очереди (медиана 3 повторов)",
+                 fontsize=12, fontweight="bold")
     fig.tight_layout(rect=(0, 0, 1, 0.93))
     fig.savefig(RESULTS / "throughput.png", dpi=150)
     plt.close(fig)
 
 
 def plot_latency(df: pd.DataFrame) -> None:
-    """noop, N=1000: p50 и p95 задержки enqueue→finish. Это очередь + накладные расходы, не «скорость Redis»."""
-    data = df[(df["kind"] == "noop") & (df["n"] == 1000)]
-    configs = list(data["config"].cat.categories)
-    workers = sorted(data["workers"].unique())
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
-    width = 0.8 / len(configs)
-    for ax, metric, title in zip(axes, ("latency_p50_ms", "latency_p95_ms"), ("p50", "p95")):
-        for i, config in enumerate(configs):
-            g = data[data["config"] == config].set_index("workers").reindex(workers)
-            x = [w_i + (i - (len(configs) - 1) / 2) * width for w_i in range(len(workers))]
-            bars = ax.bar(x, g[metric], width=width * 0.92, color=COLORS[config], label=LABELS[config])
-            for b, v in zip(bars, g[metric]):
-                if pd.notna(v):
-                    ax.annotate(f"{v / 1000:.1f}s" if v >= 1000 else f"{v:.0f}", (b.get_x() + b.get_width() / 2, v),
-                                textcoords="offset points", xytext=(0, 2), ha="center", fontsize=7, color="#52514e")
-        ax.set_xticks(range(len(workers)), [f"{w} воркер{'а' if w > 1 else ''}" for w in workers])
-        ax.set_title(f"Задержка {title}, мс (log)", fontsize=10)
-        ax.set_yscale("log")
-    handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="lower center", ncol=4, fontsize=9, bbox_to_anchor=(0.5, 0.0))
-    fig.suptitle("noop, N = 1000: задержка от постановки до завершения", fontsize=12, fontweight="bold")
-    fig.tight_layout(rect=(0, 0.07, 1, 0.93))
+    """Накладные расходы на одну задачу: пустая очередь, задачи по одной, с ожиданием каждой.
+
+    Это НЕ время ожидания в очереди (в v1 измерялось именно оно и подчинялось закону Литтла),
+    а цена прохода одной задачи через очередь: сериализация → брокер → воркер → результат.
+    """
+    data = df[df["kind"] == "noop"].groupby("config", observed=True)[["latency_p50_ms", "latency_p95_ms"]].median()
+    configs = list(data.index)
+    fig, ax = plt.subplots(figsize=(9, 4))
+    width = 0.38
+    for i, (metric, title) in enumerate((("latency_p50_ms", "p50"), ("latency_p95_ms", "p95"))):
+        x = [j + (i - 0.5) * width for j in range(len(configs))]
+        bars = ax.bar(x, data[metric], width=width * 0.92,
+                      color=[COLORS[c] for c in configs], alpha=1.0 if i == 0 else 0.55)
+        for b, v in zip(bars, data[metric]):
+            ax.annotate(f"{v:.1f}", (b.get_x() + b.get_width() / 2, v), textcoords="offset points",
+                        xytext=(0, 2), ha="center", fontsize=8, color="#52514e")
+    ax.set_xticks(range(len(configs)), [LABELS[c].replace(" + ", "\n+ ") for c in configs], fontsize=9)
+    ax.set_ylabel("мс на задачу (log)")
+    ax.set_yscale("log")
+    ticks = [1, 2, 5, 10, 20, 50, 100]
+    ax.yaxis.set_major_locator(matplotlib.ticker.FixedLocator(ticks))
+    ax.yaxis.set_minor_locator(matplotlib.ticker.NullLocator())
+    ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
+    ax.set_ylim(1, 160)
+    ax.set_title("Накладные расходы очереди: одна задача на пустой очереди\n"
+                 "(слева p50, справа p95 — по 30 замеров)", fontsize=12, fontweight="bold")
+    fig.tight_layout()
     fig.savefig(RESULTS / "latency.png", dpi=150)
     plt.close(fig)
 
@@ -123,7 +139,7 @@ def plot_enqueue(df: pd.DataFrame) -> None:
 
 def plot_scaling(df: pd.DataFrame) -> None:
     """Масштабирование: пропускная способность относительно одного воркера (идеал — линия y = x)."""
-    sub = df[df["n"] == 1000]
+    sub = df
     kinds = [k for k in ("noop", "cpu_small", "io_sleep") if k in set(sub["kind"])]
     fig, axes = plt.subplots(1, len(kinds), figsize=(4.6 * len(kinds), 4), sharey=True, squeeze=False)
     axes = axes[0]
@@ -141,7 +157,8 @@ def plot_scaling(df: pd.DataFrame) -> None:
         ax.set_xlabel("воркеров")
     axes[0].set_ylabel("ускорение относительно 1 воркера")
     _legend(axes[0], list(sub["config"].cat.categories))
-    fig.suptitle("Горизонтальное масштабирование (N = 1000)", fontsize=12, fontweight="bold")
+    fig.suptitle("Горизонтальное масштабирование (пропускная способность относительно 1 воркера)",
+                 fontsize=12, fontweight="bold")
     fig.tight_layout(rect=(0, 0, 1, 0.93))
     fig.savefig(RESULTS / "scaling.png", dpi=150)
     plt.close(fig)
@@ -151,15 +168,18 @@ def write_markdown(df: pd.DataFrame) -> None:
     """Таблицы для docs/experiment.md."""
     lines = []
     for kind in ("noop", "cpu_small", "io_sleep"):
-        for n in sorted(df[df["kind"] == kind]["n"].unique()):
-            data = df[(df["kind"] == kind) & (df["n"] == n)]
-            lines.append(f"### {kind}, N = {n}\n")
-            lines.append("| Конфигурация | Воркеров | Постановка, msg/s | Всего, с | Пропускная, задач/с | p50, мс | p95, мс | p99, мс |")
-            lines.append("|---|---:|---:|---:|---:|---:|---:|---:|")
-            for _, r in data.iterrows():
-                lines.append(f"| {LABELS[r['config']]} | {r['workers']} | {r['enqueue_rate']:.0f} | {r['total_sec']:.1f} | "
-                             f"**{r['throughput']:.0f}** | {r['latency_p50_ms']:.0f} | {r['latency_p95_ms']:.0f} | {r['latency_p99_ms']:.0f} |")
-            lines.append("")
+        data = df[df["kind"] == kind]
+        if data.empty:
+            continue
+        lines.append(f"### {kind}\n")
+        lines.append("| Конфигурация | N | Воркеров | Постановка, msg/s | Разбор очереди, с | Пропускная, задач/с | "
+                     "Задержка p50, мс | p95, мс | p99, мс |")
+        lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
+        for _, r in data.iterrows():
+            lines.append(f"| {LABELS[r['config']]} | {r['n']:.0f} | {r['workers']} | {r['enqueue_rate']:.0f} | "
+                         f"{r['drain_sec']:.1f} | **{r['throughput']:.0f}** | {r['latency_p50_ms']:.2f} | "
+                         f"{r['latency_p95_ms']:.2f} | {r['latency_p99_ms']:.2f} |")
+        lines.append("")
     (RESULTS / "summary.md").write_text("\n".join(lines), encoding="utf-8")
 
 

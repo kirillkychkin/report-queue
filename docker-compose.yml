@@ -14,10 +14,16 @@ x-app: &app
     BROKER_URL: ${BROKER_URL:-redis://redis:6379/0}
     TASK_BACKEND: ${TASK_BACKEND:-celery}
     RQ_WORKER_CLASS: ${RQ_WORKER_CLASS:-fork}
+    # Result backend и метрики бенчмарка — на отдельном Redis, чтобы брокер не делил сервер с хранилищем
+    RESULT_BACKEND_URL: ${RESULT_BACKEND_URL:-redis://redis-backend:6379/0}
+    CELERY_EVENTS: ${CELERY_EVENTS:-true}
+    BROKER_CONFIRM_PUBLISH: ${BROKER_CONFIRM_PUBLISH:-false}
   volumes:
     - artifacts:/data/artifacts
   depends_on:
     redis:
+      condition: service_healthy
+    redis-backend:
       condition: service_healthy
     rabbitmq:
       condition: service_healthy
@@ -28,6 +34,19 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Result backend Celery и метрики бенчмарка. Отдельный сервер: у брокера и хранилища
+  # результатов разный профиль нагрузки, а в эксперименте это условие честного сравнения брокеров.
+  redis-backend:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6380:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s

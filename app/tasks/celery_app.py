@@ -18,7 +18,7 @@ settings = get_settings()
 celery = Celery(
     "report_queue",
     broker=settings.broker_url,
-    backend=settings.redis_url,
+    backend=settings.result_backend,
     include=["app.tasks.celery_tasks", "bench.tasks"],
 )
 
@@ -38,9 +38,11 @@ celery.conf.update(
     # и нагрузка честно распределяется между воркерами (важно для масштабирования --scale).
     worker_prefetch_multiplier=1,
     # --- Наблюдаемость ---
+    # События стоят по одному сообщению в брокер на каждый переход задачи. В демо это нужно
+    # (Flower), в бенчмарке — выключается через CELERY_EVENTS=false.
     task_track_started=True,   # состояние STARTED, а не только PENDING/SUCCESS
-    task_send_sent_event=True,  # события для Flower
-    worker_send_task_events=True,
+    task_send_sent_event=settings.celery_events,  # события для Flower
+    worker_send_task_events=settings.celery_events,
     result_extended=True,
     result_expires=3600,        # результаты в Redis живут час — брокер/бэкенд не хранилище
     # --- Ограничения времени: зависшая задача не должна блокировать воркер вечно ---
@@ -70,3 +72,8 @@ celery.conf.update(
     },
     broker_connection_retry_on_startup=True,
 )
+
+if settings.broker_confirm_publish:
+    # Publisher confirms (только AMQP): publish ждёт подтверждения брокера.
+    # По умолчанию Celery публикует «в сокет и забыл» — быстро, но потеря сообщения не видна отправителю.
+    celery.conf.broker_transport_options = {"confirm_publish": True}

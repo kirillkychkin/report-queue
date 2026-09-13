@@ -32,6 +32,9 @@ docker compose up --build
 TASK_BACKEND=celery          # или rq
 BROKER_URL=redis://redis:6379/0                    # Celery на Redis
 # BROKER_URL=amqp://guest:guest@rabbitmq:5672//    # Celery на RabbitMQ
+RESULT_BACKEND_URL=redis://redis-backend:6379/0    # результаты — на отдельном Redis
+CELERY_EVENTS=true           # события для Flower (в бенчмарке выключаются)
+BROKER_CONFIRM_PUBLISH=false # publisher confirms для RabbitMQ
 ```
 
 затем `docker compose up -d api worker-celery beat flower` (RQ всегда работает через `REDIS_URL`).
@@ -48,7 +51,8 @@ app/tasks/
   rq_app.py     RQ: те же задачи, depends_on, Retry (нужен scheduler), прогресс через job.meta
   raw_amqp.py   producer/consumer на pika: durable, manual ack, prefetch, DLX — «как это работает под капотом»
 scripts/produce.py   ручной продьюсер: single | pipeline | batch, --backend celery|rq
-bench/          эксперимент (см. docs/experiment.md)
+bench/          эксперимент: runner.py (3 фазы замера), run_matrix.py (матрица), diagnose.py (разбор цены публикации),
+                plot.py (графики), results/ (данные; v1/ — первая версия до аудита) — см. docs/experiment.md
 docs/           архитектура, эксперимент, выводы, сценарий демо
 slides/         презентации: content/*.md (тексты) + builder.py (рендер) → talk.pptx, project.pptx
 tests/unit      домен, задачи (eager), нормализация статусов    →  .venv/Scripts/python -m pytest tests/unit

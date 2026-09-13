@@ -1,11 +1,21 @@
 """Оркестратор эксперимента (запускается на ХОСТЕ, управляет docker compose).
 
-    .venv/Scripts/python -m bench.run_matrix              # полная матрица (~45 мин)
+    .venv/Scripts/python -m bench.run_matrix              # полная матрица (~1.5–2 ч)
     .venv/Scripts/python -m bench.run_matrix --quick      # 1 повтор, N=300, только 1 и 2 воркера
 
 Для каждой конфигурации: переключить брокер/класс воркера (переменные окружения
-для compose), отмасштабировать воркеры, запустить bench.runner внутри контейнера,
+для compose), отмасштабировать воркеры, запустить bench.runner в контейнере продьюсера,
 записать строку в results/raw.csv. В конце — results/summary.csv (медианы по повторам).
+
+Методика v2 (после аудита v1, см. docs/experiment.md):
+- метрики и result backend — на отдельном Redis, брокер не делит сервер с хранилищем;
+- события Flower выключены (`CELERY_EVENTS=false`) — иначе Redis-конфигурация получает лишнюю
+  работу, которой нет у RabbitMQ-конфигурации;
+- добавлена конфигурация `celery-rabbitmq-confirm` — RabbitMQ при равных с Redis гарантиях публикации;
+- продьюсер живёт в отдельном контейнере (`api`), а не внутри воркера;
+- beat и flower на время матрицы гасятся;
+- сам прогон разделён на фазы (см. bench/runner.py): постановка в остановленную очередь,
+  разбор заведомо полной очереди, отдельный замер задержки на пустой очереди.
 """
 
 import argparse
@@ -22,21 +32,38 @@ RESULTS = Path(__file__).parent / "results"
 RAW = RESULTS / "raw.csv"
 SUMMARY = RESULTS / "summary.csv"
 
-# Конфигурация → (сервис воркера, переменные окружения для compose, аргументы runner)
+# Конфигурация → (сервис воркера, переменные окружения для compose, аргументы runner).
+# CELERY_EVENTS=false во всех конфигурациях Celery: события Flower — это лишнее сообщение в брокер
+# на каждый переход задачи, и в v1 они нагружали Redis-конфигурацию сильнее, чем RabbitMQ-конфигурацию.
+CELERY_ENV = {"CELERY_EVENTS": "false"}
 CONFIGS = {
-    "celery-redis": ("worker-celery", {"BROKER_URL": "redis://redis:6379/0"}, ["--backend", "celery", "--broker", "redis"]),
-    "celery-rabbitmq": ("worker-celery", {"BROKER_URL": "amqp://guest:guest@rabbitmq:5672//"}, ["--backend", "celery", "--broker", "rabbitmq"]),
+    "celery-redis": ("worker-celery", {**CELERY_ENV, "BROKER_URL": "redis://redis:6379/0"}, ["--backend", "celery", "--broker", "redis"]),
+    "celery-rabbitmq": ("worker-celery", {**CELERY_ENV, "BROKER_URL": "amqp://guest:guest@rabbitmq:5672//"}, ["--backend", "celery", "--broker", "rabbitmq"]),
+    # Те же гарантии на публикации, что у Redis (команда подтверждена сервером): publisher confirms
+    "celery-rabbitmq-confirm": ("worker-celery", {**CELERY_ENV, "BROKER_URL": "amqp://guest:guest@rabbitmq:5672//", "BROKER_CONFIRM_PUBLISH": "true"}, ["--backend", "celery", "--broker", "rabbitmq-confirm"]),
     "rq-redis": ("worker-rq", {"RQ_WORKER_CLASS": "fork"}, ["--backend", "rq", "--broker", "redis"]),
     "rq-simple-redis": ("worker-rq", {"RQ_WORKER_CLASS": "simple"}, ["--backend", "rq", "--broker", "redis-simple"]),
 }
-# Вид задачи → размеры N (cpu/io дороже, поэтому только 1000)
-KINDS = {"noop": [1000, 5000], "cpu_small": [1000], "io_sleep": [1000]}
+# Вид задачи → размеры N. noop берётся большим: очередь наполняется заранее, и на 5000 задач
+# разбор длится секунды, а не доли секунды (меньше влияние ramp-up воркеров).
+KINDS = {"noop": [5000], "cpu_small": [1000], "io_sleep": [1000]}
 WORKERS = [1, 2, 4]
-# RQ с fork тратит ~85 мс на задачу: N=5000 на одном воркере — 7+ минут, поэтому для него N ограничен
-MAX_N = {"rq-redis": 1000}
+# RQ с fork тратит ~70 мс на задачу, поэтому ему даются меньшие N: пропускная способность и задержка —
+# это скорости, от N они не зависят, а время прогона матрицы иначе вырастает в разы.
+SIZES_OVERRIDE = {"rq-redis": {"noop": [1000], "cpu_small": [500], "io_sleep": [500]}}
+
+
+def sizes(config: str, kind: str) -> list[int]:
+    return SIZES_OVERRIDE.get(config, {}).get(kind, KINDS[kind])
+# Продьюсер работает не в контейнере воркера, а отдельно (как настоящий API):
+# иначе постановка конкурирует с исполнением за CPU.
+PRODUCER_SERVICE = "api"
+# На время матрицы гасятся: beat (каждые 10 минут публикует cleanup в ту же очередь reports)
+# и flower (лишний потребитель событий и соединение с брокером).
+IDLE_SERVICES = ("beat", "flower")
 FIELDS = [
     "config", "backend", "broker", "kind", "n", "workers", "repeat",
-    "enqueue_sec", "enqueue_rate", "total_sec", "throughput",
+    "enqueue_sec", "enqueue_rate", "drain_sec", "throughput",
     "latency_p50_ms", "latency_p95_ms", "latency_p99_ms", "wait_p50_ms", "workers_seen",
 ]
 ALL_WORKER_SERVICES = ("worker-celery", "worker-rq")
@@ -65,11 +92,24 @@ def scale(service: str, count: int, env: dict) -> None:
     compose("up", "-d", "--no-deps", "--scale", f"{service}=0", service, env=env)  # чистый рестарт
     cleanup_rq_registry()  # все RQ-контейнеры остановлены — любая запись в реестре устарела
     compose("up", "-d", "--no-deps", "--scale", f"{service}={count}", service, env=env)
+    # Продьюсер должен работать с тем же брокером, что и воркеры, — пересоздаём при смене env
+    compose("up", "-d", "--no-deps", PRODUCER_SERVICE, env=env)
+
+
+def quiet_background(env: dict) -> None:
+    """Погасить beat и flower: они шлют задачи и держат соединения с брокером во время замеров."""
+    for service in IDLE_SERVICES:
+        compose("up", "-d", "--no-deps", "--scale", f"{service}=0", service, env=env)
+
+
+def restore_background() -> None:
+    for service in IDLE_SERVICES:
+        compose("up", "-d", "--no-deps", "--scale", f"{service}=1", service, env={})
 
 
 def run_once(config: str, kind: str, n: int, workers: int, repeat: int) -> dict:
-    service, env, runner_args = CONFIGS[config]
-    cmd = ["exec", "-T", service, "python", "-m", "bench.runner", *runner_args,
+    _service, env, runner_args = CONFIGS[config]
+    cmd = ["exec", "-T", PRODUCER_SERVICE, "python", "-m", "bench.runner", *runner_args,
            "--kind", kind, "--n", str(n), "--workers", str(workers)]
     proc = compose(*cmd, env=env, capture=True)
     for line in proc.stdout.splitlines():
@@ -123,14 +163,21 @@ def main() -> None:
     if args.fresh and RAW.exists():
         RAW.unlink()
 
-    kinds = {k: ([300] if args.quick else KINDS[k]) for k in args.kinds}
+    kinds = list(args.kinds)
     workers = [1, 2] if args.quick else args.workers
     repeats = 1 if args.quick else args.repeats
 
-    plan = [(c, k, n, w, r) for c in args.configs for k in kinds for n in kinds[k] for w in workers for r in range(1, repeats + 1)
-            if n <= MAX_N.get(c, 10**9)]
+    plan = [
+        (c, k, n, w, r)
+        for c in args.configs
+        for k in kinds
+        for n in ([300] if args.quick else sizes(c, k))
+        for w in workers
+        for r in range(1, repeats + 1)
+    ]
     print(f"{len(plan)} runs; results -> {RAW}")
     started = time.monotonic()
+    quiet_background(CONFIGS[args.configs[0]][1])
     current = None
     for i, (config, kind, n, w, r) in enumerate(plan, 1):
         service, env, _ = CONFIGS[config]
@@ -141,15 +188,20 @@ def main() -> None:
             row = run_once(config, kind, n, w, r)
         except (subprocess.CalledProcessError, RuntimeError) as exc:
             print(f"[{i}/{len(plan)}] {config} {kind} n={n} w={w} #{r}: FAILED {exc}", file=sys.stderr)
+            # Воркер мог остаться отписанным от очереди (упавший прогон между cancel/add consumer) —
+            # поднимаем заново, иначе посыплются все следующие прогоны.
+            scale(service, w, env)
             continue
         append_raw(row)
         print(f"[{i}/{len(plan)}] {config:16} {kind:9} n={n:<5} w={w} #{r}: "
-              f"thr={row['throughput']:>7} t/s  p50={row['latency_p50_ms']:>8} ms  total={row['total_sec']:>7}s  "
+              f"thr={row['throughput']:>7} t/s  enq={row['enqueue_rate']:>7} msg/s  "
+              f"p50={row['latency_p50_ms']:>7} ms  drain={row['drain_sec']:>7}s  "
               f"({(time.monotonic() - started) / 60:.1f} min)", flush=True)
 
-    # вернуть стек в обычное состояние: по одному воркеру каждого типа
+    # вернуть стек в обычное состояние: по одному воркеру каждого типа, beat и flower обратно
     scale("worker-celery", 1, {})
     compose("up", "-d", "--no-deps", "--scale", "worker-rq=1", "worker-rq")
+    restore_background()
     summarize()
 
 

@@ -6,7 +6,7 @@
 cd report-queue
 cp .env.example .env            # TASK_BACKEND=celery, BROKER_URL=redis://redis:6379/0
 docker compose up -d --build    # ~1 мин при собранном образе
-docker compose ps               # все 7 контейнеров Up, api и брокеры — healthy
+docker compose ps               # все 8 контейнеров Up, api и брокеры — healthy
 ```
 
 Открыть вкладки: `http://localhost:8000`, `http://localhost:5555` (Flower), `http://localhost:15672` (RabbitMQ, guest/guest).

@@ -15,7 +15,7 @@ flowchart LR
     BR --> WC1[worker-celery ×N<br/>concurrency=1]
     RQQ --> WR[worker-rq ×N]
 
-    WC1 -->|результат, PROGRESS| RB[(Redis<br/>result backend)]
+    WC1 -->|результат, PROGRESS| RB[(redis-backend<br/>result backend)]
     WR -->|job.meta, return_value| RQQ
     TB -.->|get_status| RB
     TB -.->|Job.fetch| RQQ
@@ -100,7 +100,9 @@ stateDiagram-v2
 | **Celery `concurrency=1` на контейнер, масштаб через `--scale`** | Один процесс = один воркер — сравнимо с RQ; показывает распределённую обработку, а не пул процессов | `--concurrency=4` в одном контейнере (prefork) | Больше контейнеров; для CPU-задач prefork в одном контейнере экономнее по памяти |
 | **Redis как брокер по умолчанию** | Простота, одна зависимость (он же result backend и очередь RQ), достаточно для демо | RabbitMQ — publisher confirms, durable queues, DLX, маршрутизация | Redis может потерять сообщения при падении до fsync (AOF everysec); visibility timeout вместо настоящих ack |
 | **RabbitMQ как «серьёзный» вариант** | Настоящие ack/nack, durable + persistent, DLX, prefetch, management UI | Redis Streams; Kafka (не для задач) | Ещё один сервис; Celery на RabbitMQ не даёт result backend — Redis всё равно нужен |
-| **RQ `Worker` (fork на задачу) vs `SimpleWorker`** | Fork изолирует утечки памяти и падения; SimpleWorker в 10–20× быстрее на коротких задачах | Celery prefork держит пул долгоживущих процессов + `max_tasks_per_child` | Fork ≈ 85 мс/задача в Docker Desktop; для микрозадач непригоден |
+| **RQ `Worker` (fork на задачу) vs `SimpleWorker`** | Fork изолирует утечки памяти и падения; SimpleWorker в 23× быстрее на коротких задачах | Celery prefork держит пул долгоживущих процессов + `max_tasks_per_child` | Fork ≈ 72 мс/задача в Docker Desktop (прямой замер); для микрозадач непригоден |
+| **Отдельный Redis под result backend (`redis-backend`)** | У брокера и хранилища результатов разный профиль нагрузки; в эксперименте это ещё и условие честного сравнения брокеров (иначе один Redis обслуживает и очередь, и результаты) | Один Redis на всё — меньше контейнеров | Ещё один сервис в compose; в демо разница незаметна |
+| **События Celery (Flower) — переключаемые (`CELERY_EVENTS`)** | События стоят по сообщению в брокер на каждый переход задачи; в демо это нужно для наблюдаемости, в замере искажает сравнение | Всегда включены / всегда выключены | Во время бенчмарка Flower не показывает задачи |
 | **Только JSON-сериализация** | pickle небезопасен (RCE при доступе к брокеру) и привязывает к версии кода | pickle, msgpack | Аргументы — только простые типы; pydantic-модели передаются как dict |
 | **Домен не знает об очередях** | Одна функция `generate_report()` вызывается из Celery, RQ, pika и тестов; тесты домена без брокера | Логика внутри задач | Прогресс — через callback, а не напрямую `update_state` |
 | **Воркеры только в Docker** | RQ использует `fork` (нет на Windows); Celery prefork на Windows нестабилен; окружение демо воспроизводимо | `--pool=solo/threads` на Windows | Локальная отладка воркера — через `docker compose exec` |

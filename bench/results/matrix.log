@@ -1,137 +1,1073 @@
+ Container report-queue-beat-1  Stopping
+ Container report-queue-beat-1  Stopped
+ Container report-queue-beat-1  Removing
+ Container report-queue-beat-1  Removed
+ Container report-queue-flower-1  Stopping
+ Container report-queue-flower-1  Stopped
+ Container report-queue-flower-1  Removing
+ Container report-queue-flower-1  Removed
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Recreate
+ Container report-queue-api-1  Recreated
+ Container report-queue-api-1  Starting
+ Container report-queue-api-1  Started
 135 runs; results -> D:\nefu\python\report-queue\bench\results\raw.csv
-[1/135] celery-redis     noop      n=1000  w=1 #1: thr=  312.0 t/s  p50=  1134.8 ms  total=  3.205s  (0.3 min)
-[2/135] celery-redis     noop      n=1000  w=1 #2: thr=  302.2 t/s  p50=  1148.2 ms  total=  3.309s  (0.4 min)
-[3/135] celery-redis     noop      n=1000  w=1 #3: thr=  277.0 t/s  p50=  1413.2 ms  total=   3.61s  (0.5 min)
-[4/135] celery-redis     noop      n=1000  w=2 #1: thr=  554.7 t/s  p50=   360.0 ms  total=  1.803s  (0.8 min)
-[5/135] celery-redis     noop      n=1000  w=2 #2: thr=  552.7 t/s  p50=   364.4 ms  total=  1.809s  (0.9 min)
-[6/135] celery-redis     noop      n=1000  w=2 #3: thr=  491.4 t/s  p50=   432.1 ms  total=  2.035s  (1.0 min)
-[7/135] celery-redis     noop      n=1000  w=4 #1: thr=  653.1 t/s  p50=     3.3 ms  total=  1.531s  (1.3 min)
-[8/135] celery-redis     noop      n=1000  w=4 #2: thr=  739.3 t/s  p50=     2.8 ms  total=  1.353s  (1.4 min)
-[9/135] celery-redis     noop      n=1000  w=4 #3: thr=  740.8 t/s  p50=     2.8 ms  total=   1.35s  (1.5 min)
-[10/135] celery-redis     noop      n=5000  w=1 #1: thr=  284.4 t/s  p50=  6378.9 ms  total= 17.582s  (2.0 min)
-[11/135] celery-redis     noop      n=5000  w=1 #2: thr=  281.0 t/s  p50=  6794.3 ms  total= 17.795s  (2.3 min)
-[12/135] celery-redis     noop      n=5000  w=1 #3: thr=  302.3 t/s  p50=  5773.5 ms  total= 16.537s  (2.7 min)
-[13/135] celery-redis     noop      n=5000  w=2 #1: thr=  521.0 t/s  p50=  2012.0 ms  total=  9.596s  (3.1 min)
-[14/135] celery-redis     noop      n=5000  w=2 #2: thr=  484.3 t/s  p50=  2180.0 ms  total= 10.324s  (3.3 min)
-[15/135] celery-redis     noop      n=5000  w=2 #3: thr=  490.1 t/s  p50=  2231.3 ms  total= 10.203s  (3.6 min)
-[16/135] celery-redis     noop      n=5000  w=4 #1: thr=  663.9 t/s  p50=     3.2 ms  total=  7.532s  (3.9 min)
-[17/135] celery-redis     noop      n=5000  w=4 #2: thr=  751.9 t/s  p50=     2.9 ms  total=   6.65s  (4.1 min)
-[18/135] celery-redis     noop      n=5000  w=4 #3: thr=  757.2 t/s  p50=     2.8 ms  total=  6.603s  (4.3 min)
-[19/135] celery-redis     cpu_small n=1000  w=1 #1: thr=   17.1 t/s  p50= 29091.2 ms  total= 58.321s  (5.5 min)
-[20/135] celery-redis     cpu_small n=1000  w=1 #2: thr=   16.2 t/s  p50= 30021.1 ms  total= 61.579s  (6.6 min)
-[21/135] celery-redis     cpu_small n=1000  w=1 #3: thr=   17.3 t/s  p50= 29117.4 ms  total= 57.673s  (7.7 min)
-[22/135] celery-redis     cpu_small n=1000  w=2 #1: thr=   31.6 t/s  p50= 14944.1 ms  total= 31.627s  (8.4 min)
-[23/135] celery-redis     cpu_small n=1000  w=2 #2: thr=   31.3 t/s  p50= 15433.1 ms  total= 31.914s  (9.0 min)
-[24/135] celery-redis     cpu_small n=1000  w=2 #3: thr=   33.0 t/s  p50= 14889.7 ms  total= 30.275s  (9.6 min)
-[25/135] celery-redis     cpu_small n=1000  w=4 #1: thr=   62.9 t/s  p50=  7579.5 ms  total= 15.887s  (10.1 min)
-[26/135] celery-redis     cpu_small n=1000  w=4 #2: thr=   63.3 t/s  p50=  7365.2 ms  total= 15.802s  (10.4 min)
-[27/135] celery-redis     cpu_small n=1000  w=4 #3: thr=   63.1 t/s  p50=  7434.0 ms  total= 15.847s  (10.8 min)
-[28/135] celery-redis     io_sleep  n=1000  w=1 #1: thr=   17.0 t/s  p50= 29509.4 ms  total= 58.683s  (12.0 min)
-[29/135] celery-redis     io_sleep  n=1000  w=1 #2: thr=   17.1 t/s  p50= 28770.6 ms  total= 58.415s  (13.0 min)
-[30/135] celery-redis     io_sleep  n=1000  w=1 #3: thr=   16.8 t/s  p50= 28733.5 ms  total= 59.634s  (14.1 min)
-[31/135] celery-redis     io_sleep  n=1000  w=2 #1: thr=   33.3 t/s  p50= 14329.3 ms  total= 29.988s  (14.8 min)
-[32/135] celery-redis     io_sleep  n=1000  w=2 #2: thr=   33.5 t/s  p50= 14500.4 ms  total= 29.838s  (15.4 min)
-[33/135] celery-redis     io_sleep  n=1000  w=2 #3: thr=   33.1 t/s  p50= 14366.1 ms  total= 30.192s  (16.0 min)
-[34/135] celery-redis     io_sleep  n=1000  w=4 #1: thr=   67.6 t/s  p50=  6941.7 ms  total= 14.798s  (16.4 min)
-[35/135] celery-redis     io_sleep  n=1000  w=4 #2: thr=   67.8 t/s  p50=  6775.4 ms  total= 14.741s  (16.8 min)
-[36/135] celery-redis     io_sleep  n=1000  w=4 #3: thr=   67.9 t/s  p50=  6796.5 ms  total= 14.725s  (17.1 min)
-[37/135] celery-rabbitmq  noop      n=1000  w=1 #1: thr=  474.4 t/s  p50=   785.0 ms  total=  2.108s  (17.3 min)
-[38/135] celery-rabbitmq  noop      n=1000  w=1 #2: thr=  445.8 t/s  p50=   777.6 ms  total=  2.243s  (17.4 min)
-[39/135] celery-rabbitmq  noop      n=1000  w=1 #3: thr=  519.8 t/s  p50=   647.4 ms  total=  1.924s  (17.6 min)
-[40/135] celery-rabbitmq  noop      n=1000  w=2 #1: thr=  783.7 t/s  p50=   345.6 ms  total=  1.276s  (17.8 min)
-[41/135] celery-rabbitmq  noop      n=1000  w=2 #2: thr=  817.6 t/s  p50=   324.6 ms  total=  1.223s  (17.9 min)
-[42/135] celery-rabbitmq  noop      n=1000  w=2 #3: thr=  804.6 t/s  p50=   362.1 ms  total=  1.243s  (18.0 min)
-[43/135] celery-rabbitmq  noop      n=1000  w=4 #1: thr= 1334.2 t/s  p50=    59.8 ms  total=  0.749s  (18.2 min)
-[44/135] celery-rabbitmq  noop      n=1000  w=4 #2: thr= 1335.8 t/s  p50=    53.5 ms  total=  0.749s  (18.3 min)
-[45/135] celery-rabbitmq  noop      n=1000  w=4 #3: thr= 1343.5 t/s  p50=    57.4 ms  total=  0.744s  (18.4 min)
-[46/135] celery-rabbitmq  noop      n=5000  w=1 #1: thr=  480.8 t/s  p50=  3825.0 ms  total= 10.399s  (18.8 min)
-[47/135] celery-rabbitmq  noop      n=5000  w=1 #2: thr=  477.8 t/s  p50=  3763.5 ms  total= 10.464s  (19.1 min)
-[48/135] celery-rabbitmq  noop      n=5000  w=1 #3: thr=  469.0 t/s  p50=  4005.6 ms  total= 10.661s  (19.3 min)
-[49/135] celery-rabbitmq  noop      n=5000  w=2 #1: thr=  852.1 t/s  p50=  1573.0 ms  total=  5.868s  (19.6 min)
-[50/135] celery-rabbitmq  noop      n=5000  w=2 #2: thr=  854.9 t/s  p50=  1515.5 ms  total=  5.848s  (19.8 min)
-[51/135] celery-rabbitmq  noop      n=5000  w=2 #3: thr=  835.5 t/s  p50=  1648.9 ms  total=  5.985s  (20.0 min)
-[52/135] celery-rabbitmq  noop      n=5000  w=4 #1: thr= 1378.3 t/s  p50=   293.6 ms  total=  3.628s  (20.3 min)
-[53/135] celery-rabbitmq  noop      n=5000  w=4 #2: thr= 1247.2 t/s  p50=   409.2 ms  total=  4.009s  (20.4 min)
-[54/135] celery-rabbitmq  noop      n=5000  w=4 #3: thr= 1345.6 t/s  p50=   333.3 ms  total=  3.716s  (20.6 min)
-[55/135] celery-rabbitmq  cpu_small n=1000  w=1 #1: thr=   19.1 t/s  p50= 25794.4 ms  total= 52.456s  (21.7 min)
-[56/135] celery-rabbitmq  cpu_small n=1000  w=1 #2: thr=   19.1 t/s  p50= 25820.5 ms  total= 52.318s  (22.7 min)
-[57/135] celery-rabbitmq  cpu_small n=1000  w=1 #3: thr=   19.1 t/s  p50= 25745.3 ms  total= 52.263s  (23.6 min)
-[58/135] celery-rabbitmq  cpu_small n=1000  w=2 #1: thr=   36.3 t/s  p50= 13476.2 ms  total= 27.535s  (24.3 min)
-[59/135] celery-rabbitmq  cpu_small n=1000  w=2 #2: thr=   36.2 t/s  p50= 13568.7 ms  total= 27.599s  (24.8 min)
-[60/135] celery-rabbitmq  cpu_small n=1000  w=2 #3: thr=   36.7 t/s  p50= 13302.4 ms  total= 27.232s  (25.3 min)
-[61/135] celery-rabbitmq  cpu_small n=1000  w=4 #1: thr=   60.4 t/s  p50=  7988.2 ms  total= 16.551s  (25.9 min)
-[62/135] celery-rabbitmq  cpu_small n=1000  w=4 #2: thr=   67.0 t/s  p50=  7332.3 ms  total= 14.934s  (26.2 min)
-[63/135] celery-rabbitmq  cpu_small n=1000  w=4 #3: thr=   66.7 t/s  p50=  7255.2 ms  total= 15.003s  (26.5 min)
-[64/135] celery-rabbitmq  io_sleep  n=1000  w=1 #1: thr=   16.8 t/s  p50= 29652.0 ms  total= 59.577s  (27.7 min)
-[65/135] celery-rabbitmq  io_sleep  n=1000  w=1 #2: thr=   16.9 t/s  p50= 29376.5 ms  total= 59.104s  (28.8 min)
-[66/135] celery-rabbitmq  io_sleep  n=1000  w=1 #3: thr=   16.9 t/s  p50= 29462.0 ms  total= 59.024s  (29.8 min)
-[67/135] celery-rabbitmq  io_sleep  n=1000  w=2 #1: thr=   34.1 t/s  p50= 14564.8 ms  total= 29.351s  (30.5 min)
-[68/135] celery-rabbitmq  io_sleep  n=1000  w=2 #2: thr=   34.1 t/s  p50= 14352.5 ms  total= 29.304s  (31.1 min)
-[69/135] celery-rabbitmq  io_sleep  n=1000  w=2 #3: thr=   33.9 t/s  p50= 14417.6 ms  total= 29.475s  (31.7 min)
-[70/135] celery-rabbitmq  io_sleep  n=1000  w=4 #1: thr=   69.0 t/s  p50=  6863.1 ms  total= 14.489s  (32.2 min)
-[71/135] celery-rabbitmq  io_sleep  n=1000  w=4 #2: thr=   68.0 t/s  p50=  7073.0 ms  total= 14.697s  (32.5 min)
-[72/135] celery-rabbitmq  io_sleep  n=1000  w=4 #3: thr=   68.7 t/s  p50=  7057.5 ms  total= 14.557s  (32.8 min)
-[73/135] rq-redis         noop      n=1000  w=1 #1: thr=   13.1 t/s  p50= 37829.9 ms  total=  76.27s  (34.2 min)
-[74/135] rq-redis         noop      n=1000  w=1 #2: thr=   13.2 t/s  p50= 37904.5 ms  total=  75.95s  (35.5 min)
-[75/135] rq-redis         noop      n=1000  w=1 #3: thr=   13.1 t/s  p50= 37956.9 ms  total= 76.427s  (36.8 min)
-[76/135] rq-redis         noop      n=1000  w=2 #1: thr=   24.7 t/s  p50= 20012.4 ms  total= 40.423s  (37.6 min)
-[77/135] rq-redis         noop      n=1000  w=2 #2: thr=   24.5 t/s  p50= 20245.6 ms  total= 40.736s  (38.3 min)
-[78/135] rq-redis         noop      n=1000  w=2 #3: thr=   24.3 t/s  p50= 20117.7 ms  total= 41.181s  (39.1 min)
-[79/135] rq-redis         noop      n=1000  w=4 #1: thr=   44.5 t/s  p50= 11117.9 ms  total= 22.456s  (39.6 min)
-[80/135] rq-redis         noop      n=1000  w=4 #2: thr=   44.2 t/s  p50= 10986.3 ms  total= 22.616s  (40.0 min)
-[81/135] rq-redis         noop      n=1000  w=4 #3: thr=   44.7 t/s  p50= 10934.0 ms  total= 22.362s  (40.4 min)
-[82/135] rq-redis         cpu_small n=1000  w=1 #1: thr=    6.9 t/s  p50= 72498.4 ms  total=145.563s  (42.9 min)
-[83/135] rq-redis         cpu_small n=1000  w=1 #2: thr=    6.9 t/s  p50= 72302.7 ms  total= 145.07s  (45.4 min)
-[84/135] rq-redis         cpu_small n=1000  w=1 #3: thr=    6.9 t/s  p50= 72253.3 ms  total=145.292s  (47.8 min)
-[85/135] rq-redis         cpu_small n=1000  w=2 #1: thr=   12.9 t/s  p50= 38489.4 ms  total= 77.406s  (49.2 min)
-[86/135] rq-redis         cpu_small n=1000  w=2 #2: thr=   12.9 t/s  p50= 38576.4 ms  total= 77.339s  (50.6 min)
-[87/135] rq-redis         cpu_small n=1000  w=2 #3: thr=   12.9 t/s  p50= 38672.9 ms  total= 77.484s  (51.9 min)
-[88/135] rq-redis         cpu_small n=1000  w=4 #1: thr=   23.3 t/s  p50= 21377.9 ms  total= 42.876s  (52.7 min)
-[89/135] rq-redis         cpu_small n=1000  w=4 #2: thr=   23.4 t/s  p50= 21000.5 ms  total= 42.686s  (53.5 min)
-[90/135] rq-redis         cpu_small n=1000  w=4 #3: thr=   23.3 t/s  p50= 21229.1 ms  total= 42.949s  (54.2 min)
-[91/135] rq-redis         io_sleep  n=1000  w=1 #1: thr=    7.5 t/s  p50= 66603.9 ms  total=133.584s  (56.6 min)
-[92/135] rq-redis         io_sleep  n=1000  w=1 #2: thr=    7.5 t/s  p50= 66932.3 ms  total=133.795s  (58.9 min)
-[93/135] rq-redis         io_sleep  n=1000  w=1 #3: thr=    7.5 t/s  p50= 66369.3 ms  total= 133.74s  (61.1 min)
-[94/135] rq-redis         io_sleep  n=1000  w=2 #1: thr=   14.7 t/s  p50= 33581.9 ms  total= 67.848s  (62.4 min)
-[95/135] rq-redis         io_sleep  n=1000  w=2 #2: thr=   14.7 t/s  p50= 33641.1 ms  total= 67.864s  (63.5 min)
-[96/135] rq-redis         io_sleep  n=1000  w=2 #3: thr=   14.7 t/s  p50= 33714.2 ms  total= 67.875s  (64.7 min)
-[97/135] rq-redis         io_sleep  n=1000  w=4 #1: thr=   29.3 t/s  p50= 16791.6 ms  total= 34.107s  (65.4 min)
-[98/135] rq-redis         io_sleep  n=1000  w=4 #2: thr=   29.2 t/s  p50= 16854.6 ms  total= 34.198s  (66.0 min)
-[99/135] rq-redis         io_sleep  n=1000  w=4 #3: thr=   29.3 t/s  p50= 16961.5 ms  total= 34.111s  (66.6 min)
-[100/135] rq-simple-redis  noop      n=1000  w=1 #1: thr=  279.6 t/s  p50=  1644.8 ms  total=  3.577s  (66.8 min)
-[101/135] rq-simple-redis  noop      n=1000  w=1 #2: thr=  300.4 t/s  p50=  1429.6 ms  total=  3.329s  (66.9 min)
-[102/135] rq-simple-redis  noop      n=1000  w=1 #3: thr=  304.7 t/s  p50=  1456.9 ms  total=  3.282s  (67.0 min)
-[103/135] rq-simple-redis  noop      n=1000  w=2 #1: thr=  502.5 t/s  p50=   832.8 ms  total=   1.99s  (67.1 min)
-[104/135] rq-simple-redis  noop      n=1000  w=2 #2: thr=  548.7 t/s  p50=   671.1 ms  total=  1.822s  (67.2 min)
-[105/135] rq-simple-redis  noop      n=1000  w=2 #3: thr=  544.4 t/s  p50=   688.0 ms  total=  1.837s  (67.2 min)
-[106/135] rq-simple-redis  noop      n=1000  w=4 #1: thr=  825.5 t/s  p50=   354.0 ms  total=  1.211s  (67.4 min)
-[107/135] rq-simple-redis  noop      n=1000  w=4 #2: thr=  845.7 t/s  p50=   322.4 ms  total=  1.183s  (67.4 min)
-[108/135] rq-simple-redis  noop      n=1000  w=4 #3: thr=  898.3 t/s  p50=   298.7 ms  total=  1.113s  (67.5 min)
-[109/135] rq-simple-redis  noop      n=5000  w=1 #1: thr=  289.7 t/s  p50=  7480.1 ms  total= 17.258s  (67.9 min)
-[110/135] rq-simple-redis  noop      n=5000  w=1 #2: thr=  296.3 t/s  p50=  7532.1 ms  total= 16.874s  (68.2 min)
-[111/135] rq-simple-redis  noop      n=5000  w=1 #3: thr=  293.0 t/s  p50=  7474.5 ms  total= 17.067s  (68.5 min)
-[112/135] rq-simple-redis  noop      n=5000  w=2 #1: thr=  537.3 t/s  p50=  3628.2 ms  total=  9.306s  (68.8 min)
-[113/135] rq-simple-redis  noop      n=5000  w=2 #2: thr=  563.5 t/s  p50=  3370.2 ms  total=  8.873s  (69.0 min)
-[114/135] rq-simple-redis  noop      n=5000  w=2 #3: thr=  536.2 t/s  p50=  3574.7 ms  total=  9.325s  (69.2 min)
-[115/135] rq-simple-redis  noop      n=5000  w=4 #1: thr=  873.8 t/s  p50=  1538.5 ms  total=  5.722s  (69.4 min)
-[116/135] rq-simple-redis  noop      n=5000  w=4 #2: thr=  919.1 t/s  p50=  1421.1 ms  total=   5.44s  (69.5 min)
-[117/135] rq-simple-redis  noop      n=5000  w=4 #3: thr=  898.6 t/s  p50=  1521.3 ms  total=  5.564s  (69.6 min)
-[118/135] rq-simple-redis  cpu_small n=1000  w=1 #1: thr=   18.9 t/s  p50= 26255.0 ms  total= 52.936s  (70.6 min)
-[119/135] rq-simple-redis  cpu_small n=1000  w=1 #2: thr=   19.0 t/s  p50= 26215.8 ms  total= 52.753s  (71.6 min)
-[120/135] rq-simple-redis  cpu_small n=1000  w=1 #3: thr=   19.0 t/s  p50= 26119.8 ms  total= 52.555s  (72.5 min)
-[121/135] rq-simple-redis  cpu_small n=1000  w=2 #1: thr=   35.7 t/s  p50= 13902.0 ms  total=  28.05s  (73.1 min)
-[122/135] rq-simple-redis  cpu_small n=1000  w=2 #2: thr=   35.8 t/s  p50= 13801.7 ms  total= 27.924s  (73.6 min)
-[123/135] rq-simple-redis  cpu_small n=1000  w=2 #3: thr=   36.0 t/s  p50= 13676.2 ms  total=  27.74s  (74.1 min)
-[124/135] rq-simple-redis  cpu_small n=1000  w=4 #1: thr=   64.0 t/s  p50=  7691.2 ms  total= 15.633s  (74.5 min)
-[125/135] rq-simple-redis  cpu_small n=1000  w=4 #2: thr=   63.9 t/s  p50=  7731.4 ms  total= 15.653s  (74.8 min)
-[126/135] rq-simple-redis  cpu_small n=1000  w=4 #3: thr=   65.7 t/s  p50=  7336.5 ms  total= 15.212s  (75.1 min)
-[127/135] rq-simple-redis  io_sleep  n=1000  w=1 #1: thr=   15.7 t/s  p50= 31496.6 ms  total= 63.753s  (76.2 min)
-[128/135] rq-simple-redis  io_sleep  n=1000  w=1 #2: thr=   15.8 t/s  p50= 31405.2 ms  total= 63.337s  (77.3 min)
-[129/135] rq-simple-redis  io_sleep  n=1000  w=1 #3: thr=   15.7 t/s  p50= 31387.8 ms  total= 63.579s  (78.4 min)
-[130/135] rq-simple-redis  io_sleep  n=1000  w=2 #1: thr=   31.6 t/s  p50= 15446.3 ms  total= 31.649s  (79.1 min)
-[131/135] rq-simple-redis  io_sleep  n=1000  w=2 #2: thr=   31.7 t/s  p50= 15679.5 ms  total= 31.591s  (79.6 min)
-[132/135] rq-simple-redis  io_sleep  n=1000  w=2 #3: thr=   31.8 t/s  p50= 15446.7 ms  total= 31.415s  (80.2 min)
-[133/135] rq-simple-redis  io_sleep  n=1000  w=4 #1: thr=   64.7 t/s  p50=  7521.1 ms  total=  15.45s  (80.6 min)
-[134/135] rq-simple-redis  io_sleep  n=1000  w=4 #2: thr=   64.7 t/s  p50=  7511.9 ms  total= 15.466s  (80.9 min)
-[135/135] rq-simple-redis  io_sleep  n=1000  w=4 #3: thr=   64.5 t/s  p50=  7595.7 ms  total= 15.495s  (81.2 min)
+[1/135] celery-redis     noop      n=5000  w=1 #1: thr=  446.1 t/s  enq= 1562.5 msg/s  p50=   1.75 ms  drain= 11.208s  (0.5 min)
+[2/135] celery-redis     noop      n=5000  w=1 #2: thr=  431.4 t/s  enq= 1606.2 msg/s  p50=   1.73 ms  drain= 11.591s  (0.9 min)
+[3/135] celery-redis     noop      n=5000  w=1 #3: thr=  434.0 t/s  enq= 1585.2 msg/s  p50=   1.69 ms  drain= 11.522s  (1.2 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[4/135] celery-redis     noop      n=5000  w=2 #1: thr=  813.8 t/s  enq= 1607.7 msg/s  p50=   1.83 ms  drain=  6.144s  (1.6 min)
+[5/135] celery-redis     noop      n=5000  w=2 #2: thr=  755.5 t/s  enq= 1579.9 msg/s  p50=   1.84 ms  drain=  6.618s  (1.9 min)
+[6/135] celery-redis     noop      n=5000  w=2 #3: thr=  835.3 t/s  enq= 1582.8 msg/s  p50=    1.8 ms  drain=  5.986s  (2.2 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[7/135] celery-redis     noop      n=5000  w=4 #1: thr= 1398.8 t/s  enq= 1585.4 msg/s  p50=   2.07 ms  drain=  3.574s  (2.5 min)
+[8/135] celery-redis     noop      n=5000  w=4 #2: thr= 1499.2 t/s  enq= 1559.1 msg/s  p50=    2.0 ms  drain=  3.335s  (2.8 min)
+[9/135] celery-redis     noop      n=5000  w=4 #3: thr= 1497.2 t/s  enq= 1579.6 msg/s  p50=   2.28 ms  drain=   3.34s  (3.0 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[10/135] celery-redis     cpu_small n=1000  w=1 #1: thr=   19.5 t/s  enq= 1556.2 msg/s  p50=  48.57 ms  drain= 51.192s  (4.1 min)
+[11/135] celery-redis     cpu_small n=1000  w=1 #2: thr=   19.4 t/s  enq= 1438.7 msg/s  p50=  48.18 ms  drain= 51.488s  (5.1 min)
+[12/135] celery-redis     cpu_small n=1000  w=1 #3: thr=   19.6 t/s  enq= 1514.7 msg/s  p50=  48.54 ms  drain= 51.106s  (6.1 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[13/135] celery-redis     cpu_small n=1000  w=2 #1: thr=   37.1 t/s  enq= 1569.1 msg/s  p50=  49.58 ms  drain= 26.954s  (6.9 min)
+[14/135] celery-redis     cpu_small n=1000  w=2 #2: thr=   37.1 t/s  enq= 1541.4 msg/s  p50=  49.31 ms  drain=  26.97s  (7.5 min)
+[15/135] celery-redis     cpu_small n=1000  w=2 #3: thr=   37.2 t/s  enq= 1555.1 msg/s  p50=  48.42 ms  drain= 26.864s  (8.1 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[16/135] celery-redis     cpu_small n=1000  w=4 #1: thr=   67.3 t/s  enq= 1515.1 msg/s  p50=  48.21 ms  drain= 14.851s  (8.6 min)
+[17/135] celery-redis     cpu_small n=1000  w=4 #2: thr=   67.1 t/s  enq= 1549.1 msg/s  p50=  52.32 ms  drain= 14.909s  (9.0 min)
+[18/135] celery-redis     cpu_small n=1000  w=4 #3: thr=   66.1 t/s  enq= 1552.4 msg/s  p50=  48.46 ms  drain= 15.135s  (9.4 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[19/135] celery-redis     io_sleep  n=1000  w=1 #1: thr=   16.7 t/s  enq= 1492.7 msg/s  p50=  55.01 ms  drain= 59.856s  (10.7 min)
+[20/135] celery-redis     io_sleep  n=1000  w=1 #2: thr=   16.7 t/s  enq= 1566.5 msg/s  p50=  54.85 ms  drain= 59.895s  (11.8 min)
+[21/135] celery-redis     io_sleep  n=1000  w=1 #3: thr=   16.7 t/s  enq= 1600.5 msg/s  p50=  53.01 ms  drain= 60.017s  (13.0 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[22/135] celery-redis     io_sleep  n=1000  w=2 #1: thr=   33.3 t/s  enq= 1570.9 msg/s  p50=  54.87 ms  drain= 30.033s  (13.8 min)
+[23/135] celery-redis     io_sleep  n=1000  w=2 #2: thr=   33.4 t/s  enq= 1581.7 msg/s  p50=  54.43 ms  drain=  29.92s  (14.4 min)
+[24/135] celery-redis     io_sleep  n=1000  w=2 #3: thr=   33.3 t/s  enq= 1554.7 msg/s  p50=  55.39 ms  drain= 30.017s  (15.1 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-api-1  Running
+[25/135] celery-redis     io_sleep  n=1000  w=4 #1: thr=   66.6 t/s  enq= 1524.7 msg/s  p50=   55.3 ms  drain= 15.009s  (15.6 min)
+[26/135] celery-redis     io_sleep  n=1000  w=4 #2: thr=   67.3 t/s  enq= 1614.7 msg/s  p50=  55.14 ms  drain= 14.863s  (16.0 min)
+[27/135] celery-redis     io_sleep  n=1000  w=4 #3: thr=   67.3 t/s  enq= 1548.4 msg/s  p50=  55.61 ms  drain= 14.862s  (16.4 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Recreate
+ Container report-queue-api-1  Recreated
+ Container report-queue-api-1  Starting
+ Container report-queue-api-1  Started
+[28/135] celery-rabbitmq  noop      n=5000  w=1 #1: thr=  565.7 t/s  enq= 2232.8 msg/s  p50=   2.65 ms  drain=  8.839s  (16.8 min)
+[29/135] celery-rabbitmq  noop      n=5000  w=1 #2: thr=  559.9 t/s  enq= 2379.6 msg/s  p50=   1.41 ms  drain=   8.93s  (17.1 min)
+[30/135] celery-rabbitmq  noop      n=5000  w=1 #3: thr=  552.4 t/s  enq= 2304.0 msg/s  p50=   1.42 ms  drain=  9.051s  (17.4 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[31/135] celery-rabbitmq  noop      n=5000  w=2 #1: thr= 1036.2 t/s  enq= 2346.2 msg/s  p50=   1.65 ms  drain=  4.825s  (17.7 min)
+[32/135] celery-rabbitmq  noop      n=5000  w=2 #2: thr= 1084.2 t/s  enq= 2188.4 msg/s  p50=   1.79 ms  drain=  4.612s  (17.9 min)
+[33/135] celery-rabbitmq  noop      n=5000  w=2 #3: thr= 1066.7 t/s  enq= 2333.2 msg/s  p50=   2.21 ms  drain=  4.688s  (18.2 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-api-1  Running
+[34/135] celery-rabbitmq  noop      n=5000  w=4 #1: thr= 1756.8 t/s  enq= 2384.3 msg/s  p50=   1.92 ms  drain=  2.846s  (18.5 min)
+[35/135] celery-rabbitmq  noop      n=5000  w=4 #2: thr= 1726.7 t/s  enq= 2335.4 msg/s  p50=   1.79 ms  drain=  2.896s  (18.7 min)
+[36/135] celery-rabbitmq  noop      n=5000  w=4 #3: thr= 1744.4 t/s  enq= 2302.5 msg/s  p50=   1.92 ms  drain=  2.866s  (18.9 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[37/135] celery-rabbitmq  cpu_small n=1000  w=1 #1: thr=   19.6 t/s  enq= 2274.6 msg/s  p50=  48.14 ms  drain= 50.911s  (20.0 min)
+[38/135] celery-rabbitmq  cpu_small n=1000  w=1 #2: thr=   19.7 t/s  enq= 2166.9 msg/s  p50=  47.53 ms  drain= 50.698s  (21.0 min)
+[39/135] celery-rabbitmq  cpu_small n=1000  w=1 #3: thr=   19.7 t/s  enq= 2234.4 msg/s  p50=  47.52 ms  drain= 50.682s  (21.9 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[40/135] celery-rabbitmq  cpu_small n=1000  w=2 #1: thr=   37.3 t/s  enq= 2227.6 msg/s  p50=  48.56 ms  drain= 26.804s  (22.7 min)
+[41/135] celery-rabbitmq  cpu_small n=1000  w=2 #2: thr=   37.5 t/s  enq= 2248.5 msg/s  p50=  48.47 ms  drain= 26.701s  (23.2 min)
+[42/135] celery-rabbitmq  cpu_small n=1000  w=2 #3: thr=   37.7 t/s  enq= 2259.0 msg/s  p50=  49.04 ms  drain= 26.519s  (23.8 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[43/135] celery-rabbitmq  cpu_small n=1000  w=4 #1: thr=   66.4 t/s  enq= 2249.1 msg/s  p50=  48.96 ms  drain= 15.055s  (24.3 min)
+[44/135] celery-rabbitmq  cpu_small n=1000  w=4 #2: thr=   67.1 t/s  enq= 2265.8 msg/s  p50=   48.5 ms  drain= 14.898s  (24.7 min)
+[45/135] celery-rabbitmq  cpu_small n=1000  w=4 #3: thr=   67.5 t/s  enq= 2243.8 msg/s  p50=  48.66 ms  drain= 14.815s  (25.1 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[46/135] celery-rabbitmq  io_sleep  n=1000  w=1 #1: thr=   17.0 t/s  enq= 2269.7 msg/s  p50=   52.7 ms  drain= 58.932s  (26.4 min)
+[47/135] celery-rabbitmq  io_sleep  n=1000  w=1 #2: thr=   17.1 t/s  enq= 2287.5 msg/s  p50=  54.31 ms  drain= 58.552s  (27.5 min)
+[48/135] celery-rabbitmq  io_sleep  n=1000  w=1 #3: thr=   17.0 t/s  enq= 2281.3 msg/s  p50=  54.96 ms  drain= 58.684s  (28.6 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[49/135] celery-rabbitmq  io_sleep  n=1000  w=2 #1: thr=   34.2 t/s  enq= 2180.6 msg/s  p50=  54.72 ms  drain= 29.276s  (29.3 min)
+[50/135] celery-rabbitmq  io_sleep  n=1000  w=2 #2: thr=   34.1 t/s  enq= 2267.9 msg/s  p50=   54.3 ms  drain= 29.358s  (30.0 min)
+[51/135] celery-rabbitmq  io_sleep  n=1000  w=2 #3: thr=   34.2 t/s  enq= 2248.1 msg/s  p50=  54.39 ms  drain=  29.28s  (30.6 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-api-1  Running
+[52/135] celery-rabbitmq  io_sleep  n=1000  w=4 #1: thr=   68.7 t/s  enq= 2245.4 msg/s  p50=  54.79 ms  drain= 14.563s  (31.1 min)
+[53/135] celery-rabbitmq  io_sleep  n=1000  w=4 #2: thr=   69.0 t/s  enq= 2270.8 msg/s  p50=  53.01 ms  drain= 14.489s  (31.5 min)
+[54/135] celery-rabbitmq  io_sleep  n=1000  w=4 #3: thr=   68.4 t/s  enq= 2237.3 msg/s  p50=  54.55 ms  drain= 14.622s  (31.9 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Recreate
+ Container report-queue-api-1  Recreated
+ Container report-queue-api-1  Starting
+ Container report-queue-api-1  Started
+[55/135] celery-rabbitmq-confirm noop      n=5000  w=1 #1: thr=  549.2 t/s  enq=  209.1 msg/s  p50=   1.57 ms  drain=  9.104s  (32.6 min)
+[56/135] celery-rabbitmq-confirm noop      n=5000  w=1 #2: thr=  554.3 t/s  enq=  209.4 msg/s  p50=   1.58 ms  drain=   9.02s  (33.3 min)
+[57/135] celery-rabbitmq-confirm noop      n=5000  w=1 #3: thr=  562.1 t/s  enq=  212.2 msg/s  p50=   1.57 ms  drain=  8.896s  (33.9 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[58/135] celery-rabbitmq-confirm noop      n=5000  w=2 #1: thr= 1046.2 t/s  enq=  209.8 msg/s  p50=   1.79 ms  drain=  4.779s  (34.6 min)
+[59/135] celery-rabbitmq-confirm noop      n=5000  w=2 #2: thr= 1049.5 t/s  enq=  205.0 msg/s  p50=   1.81 ms  drain=  4.764s  (35.2 min)
+[60/135] celery-rabbitmq-confirm noop      n=5000  w=2 #3: thr= 1071.9 t/s  enq=  213.5 msg/s  p50=    2.0 ms  drain=  4.665s  (35.8 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[61/135] celery-rabbitmq-confirm noop      n=5000  w=4 #1: thr= 1715.8 t/s  enq=  207.9 msg/s  p50=   2.49 ms  drain=  2.914s  (36.5 min)
+[62/135] celery-rabbitmq-confirm noop      n=5000  w=4 #2: thr= 1648.6 t/s  enq=  215.3 msg/s  p50=   2.06 ms  drain=  3.033s  (37.1 min)
+[63/135] celery-rabbitmq-confirm noop      n=5000  w=4 #3: thr= 1519.9 t/s  enq=  210.5 msg/s  p50=    2.0 ms  drain=   3.29s  (37.6 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[64/135] celery-rabbitmq-confirm cpu_small n=1000  w=1 #1: thr=   19.5 t/s  enq=  214.2 msg/s  p50=  49.82 ms  drain=  51.34s  (38.8 min)
+[65/135] celery-rabbitmq-confirm cpu_small n=1000  w=1 #2: thr=   19.5 t/s  enq=  211.2 msg/s  p50=  48.89 ms  drain= 51.336s  (39.9 min)
+[66/135] celery-rabbitmq-confirm cpu_small n=1000  w=1 #3: thr=   19.5 t/s  enq=  210.6 msg/s  p50=  48.47 ms  drain= 51.286s  (40.9 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[67/135] celery-rabbitmq-confirm cpu_small n=1000  w=2 #1: thr=   37.2 t/s  enq=  208.6 msg/s  p50=  50.41 ms  drain= 26.865s  (41.7 min)
+[68/135] celery-rabbitmq-confirm cpu_small n=1000  w=2 #2: thr=   37.2 t/s  enq=  197.1 msg/s  p50=   49.0 ms  drain= 26.887s  (42.4 min)
+[69/135] celery-rabbitmq-confirm cpu_small n=1000  w=2 #3: thr=   37.2 t/s  enq=  208.5 msg/s  p50=  48.62 ms  drain= 26.913s  (43.1 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[70/135] celery-rabbitmq-confirm cpu_small n=1000  w=4 #1: thr=   67.4 t/s  enq=  181.7 msg/s  p50=  48.66 ms  drain= 14.844s  (43.7 min)
+[71/135] celery-rabbitmq-confirm cpu_small n=1000  w=4 #2: thr=   67.8 t/s  enq=  218.9 msg/s  p50=  48.49 ms  drain= 14.744s  (44.1 min)
+[72/135] celery-rabbitmq-confirm cpu_small n=1000  w=4 #3: thr=   67.6 t/s  enq=  209.2 msg/s  p50=  48.95 ms  drain= 14.792s  (44.6 min)
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Running
+[73/135] celery-rabbitmq-confirm io_sleep  n=1000  w=1 #1: thr=   17.1 t/s  enq=  211.8 msg/s  p50=  55.03 ms  drain= 58.631s  (45.9 min)
+[74/135] celery-rabbitmq-confirm io_sleep  n=1000  w=1 #2: thr=   17.0 t/s  enq=  213.5 msg/s  p50=   54.6 ms  drain=  58.74s  (47.1 min)
+[75/135] celery-rabbitmq-confirm io_sleep  n=1000  w=1 #3: thr=   17.1 t/s  enq=  208.0 msg/s  p50=  54.97 ms  drain= 58.629s  (48.3 min)
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[76/135] celery-rabbitmq-confirm io_sleep  n=1000  w=2 #1: thr=   34.3 t/s  enq=  201.1 msg/s  p50=  53.59 ms  drain=  29.13s  (49.1 min)
+[77/135] celery-rabbitmq-confirm io_sleep  n=1000  w=2 #2: thr=   34.1 t/s  enq=  209.7 msg/s  p50=   54.9 ms  drain= 29.327s  (49.8 min)
+[78/135] celery-rabbitmq-confirm io_sleep  n=1000  w=2 #3: thr=   34.0 t/s  enq=  203.9 msg/s  p50=  54.37 ms  drain= 29.436s  (50.5 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-4  Creating
+ Container report-queue-worker-celery-2  Creating
+ Container report-queue-worker-celery-3  Creating
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-2  Created
+ Container report-queue-worker-celery-4  Created
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-3  Created
+ Container report-queue-worker-celery-3  Starting
+ Container report-queue-worker-celery-3  Started
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-worker-celery-4  Starting
+ Container report-queue-worker-celery-4  Started
+ Container report-queue-worker-celery-2  Starting
+ Container report-queue-worker-celery-2  Started
+ Container report-queue-api-1  Running
+[79/135] celery-rabbitmq-confirm io_sleep  n=1000  w=4 #1: thr=   69.1 t/s  enq=  212.2 msg/s  p50=  55.03 ms  drain= 14.475s  (51.1 min)
+[80/135] celery-rabbitmq-confirm io_sleep  n=1000  w=4 #2: thr=   69.9 t/s  enq=  205.8 msg/s  p50=  54.15 ms  drain=   14.3s  (51.5 min)
+[81/135] celery-rabbitmq-confirm io_sleep  n=1000  w=4 #3: thr=   68.7 t/s  enq=  195.4 msg/s  p50=  54.44 ms  drain=  14.56s  (52.0 min)
+ Container report-queue-worker-celery-2  Stopping
+ Container report-queue-worker-celery-4  Stopping
+ Container report-queue-worker-celery-1  Stopping
+ Container report-queue-worker-celery-3  Stopping
+ Container report-queue-worker-celery-3  Stopped
+ Container report-queue-worker-celery-3  Removing
+ Container report-queue-worker-celery-3  Removed
+ Container report-queue-worker-celery-2  Stopped
+ Container report-queue-worker-celery-2  Removing
+ Container report-queue-worker-celery-2  Removed
+ Container report-queue-worker-celery-1  Stopped
+ Container report-queue-worker-celery-1  Removing
+ Container report-queue-worker-celery-1  Removed
+ Container report-queue-worker-celery-4  Stopped
+ Container report-queue-worker-celery-4  Removing
+ Container report-queue-worker-celery-4  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Recreate
+ Container report-queue-api-1  Recreated
+ Container report-queue-api-1  Starting
+ Container report-queue-api-1  Started
+[82/135] rq-redis         noop      n=1000  w=1 #1: thr=   13.2 t/s  enq= 2082.9 msg/s  p50=   73.0 ms  drain= 76.035s  (53.5 min)
+[83/135] rq-redis         noop      n=1000  w=1 #2: thr=   13.2 t/s  enq= 2566.8 msg/s  p50=  71.92 ms  drain=  75.79s  (54.8 min)
+[84/135] rq-redis         noop      n=1000  w=1 #3: thr=   13.1 t/s  enq= 1998.2 msg/s  p50=  72.35 ms  drain= 76.219s  (56.2 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[85/135] rq-redis         noop      n=1000  w=2 #1: thr=   24.8 t/s  enq= 2231.3 msg/s  p50=  72.07 ms  drain= 40.243s  (57.0 min)
+[86/135] rq-redis         noop      n=1000  w=2 #2: thr=   24.7 t/s  enq= 2365.5 msg/s  p50=  72.07 ms  drain= 40.466s  (57.7 min)
+[87/135] rq-redis         noop      n=1000  w=2 #3: thr=   24.7 t/s  enq= 2625.7 msg/s  p50=  72.11 ms  drain= 40.501s  (58.5 min)
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-3  Creating
+ Container report-queue-worker-rq-4  Creating
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-3  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-4  Created
+ Container report-queue-worker-rq-4  Starting
+ Container report-queue-worker-rq-4  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-3  Starting
+ Container report-queue-worker-rq-3  Started
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-api-1  Running
+[88/135] rq-redis         noop      n=1000  w=4 #1: thr=   45.3 t/s  enq= 2381.8 msg/s  p50=  71.55 ms  drain= 22.079s  (59.0 min)
+[89/135] rq-redis         noop      n=1000  w=4 #2: thr=   45.0 t/s  enq= 2375.0 msg/s  p50=  72.66 ms  drain= 22.237s  (59.4 min)
+[90/135] rq-redis         noop      n=1000  w=4 #3: thr=   45.1 t/s  enq= 2496.2 msg/s  p50=  71.63 ms  drain= 22.194s  (59.9 min)
+ Container report-queue-worker-rq-4  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-3  Stopping
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-3  Stopped
+ Container report-queue-worker-rq-3  Removing
+ Container report-queue-worker-rq-3  Removed
+ Container report-queue-worker-rq-4  Stopped
+ Container report-queue-worker-rq-4  Removing
+ Container report-queue-worker-rq-4  Removed
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[91/135] rq-redis         cpu_small n=500   w=1 #1: thr=    6.9 t/s  enq= 2321.2 msg/s  p50=  140.3 ms  drain= 72.455s  (61.3 min)
+[92/135] rq-redis         cpu_small n=500   w=1 #2: thr=    6.9 t/s  enq= 2365.5 msg/s  p50= 142.46 ms  drain= 72.187s  (62.6 min)
+[93/135] rq-redis         cpu_small n=500   w=1 #3: thr=    6.9 t/s  enq= 2294.4 msg/s  p50= 140.99 ms  drain= 72.357s  (63.9 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[94/135] rq-redis         cpu_small n=500   w=2 #1: thr=   12.9 t/s  enq= 2220.1 msg/s  p50= 139.84 ms  drain= 38.669s  (64.7 min)
+[95/135] rq-redis         cpu_small n=500   w=2 #2: thr=   12.9 t/s  enq= 2251.0 msg/s  p50= 139.58 ms  drain=  38.85s  (65.5 min)
+[96/135] rq-redis         cpu_small n=500   w=2 #3: thr=   13.0 t/s  enq= 2442.8 msg/s  p50= 139.91 ms  drain= 38.516s  (66.2 min)
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-3  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-4  Creating
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-3  Created
+ Container report-queue-worker-rq-4  Created
+ Container report-queue-worker-rq-4  Starting
+ Container report-queue-worker-rq-4  Started
+ Container report-queue-worker-rq-3  Starting
+ Container report-queue-worker-rq-3  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-api-1  Running
+[97/135] rq-redis         cpu_small n=500   w=4 #1: thr=   23.5 t/s  enq= 2401.3 msg/s  p50= 139.56 ms  drain= 21.238s  (66.7 min)
+[98/135] rq-redis         cpu_small n=500   w=4 #2: thr=   23.6 t/s  enq= 2449.6 msg/s  p50= 139.52 ms  drain=  21.18s  (67.2 min)
+[99/135] rq-redis         cpu_small n=500   w=4 #3: thr=   23.5 t/s  enq= 2437.3 msg/s  p50= 140.04 ms  drain= 21.296s  (67.7 min)
+ Container report-queue-worker-rq-3  Stopping
+ Container report-queue-worker-rq-4  Stopping
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-3  Stopped
+ Container report-queue-worker-rq-3  Removing
+ Container report-queue-worker-rq-3  Removed
+ Container report-queue-worker-rq-4  Stopped
+ Container report-queue-worker-rq-4  Removing
+ Container report-queue-worker-rq-4  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[100/135] rq-redis         io_sleep  n=500   w=1 #1: thr=    7.5 t/s  enq= 2468.0 msg/s  p50= 125.62 ms  drain= 66.594s  (68.9 min)
+[101/135] rq-redis         io_sleep  n=500   w=1 #2: thr=    7.5 t/s  enq= 2510.4 msg/s  p50= 126.18 ms  drain= 66.867s  (70.1 min)
+[102/135] rq-redis         io_sleep  n=500   w=1 #3: thr=    7.5 t/s  enq= 2071.0 msg/s  p50= 126.87 ms  drain= 67.028s  (71.4 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-api-1  Running
+[103/135] rq-redis         io_sleep  n=500   w=2 #1: thr=   14.7 t/s  enq= 2200.7 msg/s  p50= 125.61 ms  drain= 33.961s  (72.1 min)
+[104/135] rq-redis         io_sleep  n=500   w=2 #2: thr=   15.3 t/s  enq= 2326.2 msg/s  p50= 125.72 ms  drain=  32.77s  (72.7 min)
+[105/135] rq-redis         io_sleep  n=500   w=2 #3: thr=   14.9 t/s  enq= 2290.2 msg/s  p50= 124.53 ms  drain= 33.634s  (73.4 min)
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-4  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-3  Creating
+ Container report-queue-worker-rq-4  Created
+ Container report-queue-worker-rq-3  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-3  Starting
+ Container report-queue-worker-rq-3  Started
+ Container report-queue-worker-rq-4  Starting
+ Container report-queue-worker-rq-4  Started
+ Container report-queue-api-1  Running
+[106/135] rq-redis         io_sleep  n=500   w=4 #1: thr=   28.9 t/s  enq= 2321.9 msg/s  p50= 124.78 ms  drain= 17.324s  (73.8 min)
+[107/135] rq-redis         io_sleep  n=500   w=4 #2: thr=   28.9 t/s  enq= 2093.4 msg/s  p50= 125.48 ms  drain= 17.293s  (74.2 min)
+[108/135] rq-redis         io_sleep  n=500   w=4 #3: thr=   29.1 t/s  enq= 2434.7 msg/s  p50= 125.46 ms  drain= 17.171s  (74.6 min)
+ Container report-queue-worker-rq-4  Stopping
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-3  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-3  Stopped
+ Container report-queue-worker-rq-3  Removing
+ Container report-queue-worker-rq-3  Removed
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-4  Stopped
+ Container report-queue-worker-rq-4  Removing
+ Container report-queue-worker-rq-4  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Recreate
+ Container report-queue-api-1  Recreated
+ Container report-queue-api-1  Starting
+ Container report-queue-api-1  Started
+[109/135] rq-simple-redis  noop      n=5000  w=1 #1: thr=  296.6 t/s  enq= 2624.4 msg/s  p50=   3.38 ms  drain= 16.859s  (75.1 min)
+[110/135] rq-simple-redis  noop      n=5000  w=1 #2: thr=  295.9 t/s  enq= 2566.9 msg/s  p50=   3.16 ms  drain= 16.899s  (75.4 min)
+[111/135] rq-simple-redis  noop      n=5000  w=1 #3: thr=  293.6 t/s  enq= 2421.9 msg/s  p50=   3.34 ms  drain= 17.033s  (75.8 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[112/135] rq-simple-redis  noop      n=5000  w=2 #1: thr=  551.9 t/s  enq= 2626.6 msg/s  p50=   3.66 ms  drain=  9.059s  (76.0 min)
+[113/135] rq-simple-redis  noop      n=5000  w=2 #2: thr=  548.8 t/s  enq= 2548.0 msg/s  p50=   3.33 ms  drain=   9.11s  (76.3 min)
+[114/135] rq-simple-redis  noop      n=5000  w=2 #3: thr=  547.3 t/s  enq= 2607.1 msg/s  p50=   3.94 ms  drain=  9.136s  (76.5 min)
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-4  Creating
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-3  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-4  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-3  Created
+ Container report-queue-worker-rq-3  Starting
+ Container report-queue-worker-rq-3  Started
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-4  Starting
+ Container report-queue-worker-rq-4  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[115/135] rq-simple-redis  noop      n=5000  w=4 #1: thr=  938.1 t/s  enq= 2600.8 msg/s  p50=   3.67 ms  drain=   5.33s  (76.7 min)
+[116/135] rq-simple-redis  noop      n=5000  w=4 #2: thr=  959.6 t/s  enq= 2545.2 msg/s  p50=   3.49 ms  drain=  5.211s  (76.9 min)
+[117/135] rq-simple-redis  noop      n=5000  w=4 #3: thr=  938.6 t/s  enq= 2319.0 msg/s  p50=   3.55 ms  drain=  5.327s  (77.0 min)
+ Container report-queue-worker-rq-4  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-3  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-4  Stopped
+ Container report-queue-worker-rq-4  Removing
+ Container report-queue-worker-rq-4  Removed
+ Container report-queue-worker-rq-3  Stopped
+ Container report-queue-worker-rq-3  Removing
+ Container report-queue-worker-rq-3  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[118/135] rq-simple-redis  cpu_small n=1000  w=1 #1: thr=   18.8 t/s  enq= 2490.5 msg/s  p50=  51.48 ms  drain= 53.103s  (78.0 min)
+[119/135] rq-simple-redis  cpu_small n=1000  w=1 #2: thr=   18.9 t/s  enq= 2522.9 msg/s  p50=  51.37 ms  drain=  53.04s  (79.0 min)
+[120/135] rq-simple-redis  cpu_small n=1000  w=1 #3: thr=   18.8 t/s  enq= 2577.4 msg/s  p50=  51.09 ms  drain= 53.089s  (79.9 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[121/135] rq-simple-redis  cpu_small n=1000  w=2 #1: thr=   35.8 t/s  enq= 1799.7 msg/s  p50=   51.6 ms  drain= 27.954s  (80.5 min)
+[122/135] rq-simple-redis  cpu_small n=1000  w=2 #2: thr=   36.0 t/s  enq= 2413.4 msg/s  p50=  51.87 ms  drain= 27.746s  (81.1 min)
+[123/135] rq-simple-redis  cpu_small n=1000  w=2 #3: thr=   36.0 t/s  enq= 2484.6 msg/s  p50=  54.01 ms  drain= 27.781s  (81.6 min)
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-4  Creating
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-3  Creating
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-4  Created
+ Container report-queue-worker-rq-3  Created
+ Container report-queue-worker-rq-3  Starting
+ Container report-queue-worker-rq-3  Started
+ Container report-queue-worker-rq-4  Starting
+ Container report-queue-worker-rq-4  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-api-1  Running
+[124/135] rq-simple-redis  cpu_small n=1000  w=4 #1: thr=   65.2 t/s  enq= 2397.1 msg/s  p50=  50.87 ms  drain= 15.337s  (82.0 min)
+[125/135] rq-simple-redis  cpu_small n=1000  w=4 #2: thr=   65.2 t/s  enq= 2464.8 msg/s  p50=  52.44 ms  drain= 15.332s  (82.3 min)
+[126/135] rq-simple-redis  cpu_small n=1000  w=4 #3: thr=   64.4 t/s  enq= 2570.4 msg/s  p50=  51.01 ms  drain= 15.539s  (82.7 min)
+ Container report-queue-worker-rq-4  Stopping
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-3  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-4  Stopped
+ Container report-queue-worker-rq-4  Removing
+ Container report-queue-worker-rq-4  Removed
+ Container report-queue-worker-rq-3  Stopped
+ Container report-queue-worker-rq-3  Removing
+ Container report-queue-worker-rq-3  Removed
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-api-1  Running
+[127/135] rq-simple-redis  io_sleep  n=1000  w=1 #1: thr=   15.8 t/s  enq= 2357.5 msg/s  p50=  57.84 ms  drain= 63.445s  (83.9 min)
+[128/135] rq-simple-redis  io_sleep  n=1000  w=1 #2: thr=   15.8 t/s  enq= 2432.3 msg/s  p50=  58.67 ms  drain= 63.436s  (85.0 min)
+[129/135] rq-simple-redis  io_sleep  n=1000  w=1 #3: thr=   15.7 t/s  enq= 2348.0 msg/s  p50=  58.86 ms  drain= 63.601s  (86.1 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-api-1  Running
+[130/135] rq-simple-redis  io_sleep  n=1000  w=2 #1: thr=   31.5 t/s  enq= 2462.9 msg/s  p50=  57.26 ms  drain= 31.724s  (86.8 min)
+[131/135] rq-simple-redis  io_sleep  n=1000  w=2 #2: thr=   31.7 t/s  enq= 2612.9 msg/s  p50=  58.16 ms  drain= 31.575s  (87.4 min)
+[132/135] rq-simple-redis  io_sleep  n=1000  w=2 #3: thr=   31.8 t/s  enq= 2530.5 msg/s  p50=  57.94 ms  drain= 31.417s  (88.0 min)
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-rq-4  Creating
+ Container report-queue-worker-rq-2  Creating
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-3  Creating
+ Container report-queue-worker-rq-3  Created
+ Container report-queue-worker-rq-4  Created
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-2  Created
+ Container report-queue-worker-rq-2  Starting
+ Container report-queue-worker-rq-2  Started
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-worker-rq-4  Starting
+ Container report-queue-worker-rq-4  Started
+ Container report-queue-worker-rq-3  Starting
+ Container report-queue-worker-rq-3  Started
+ Container report-queue-api-1  Running
+[133/135] rq-simple-redis  io_sleep  n=1000  w=4 #1: thr=   64.5 t/s  enq= 2474.2 msg/s  p50=  58.48 ms  drain= 15.507s  (88.3 min)
+[134/135] rq-simple-redis  io_sleep  n=1000  w=4 #2: thr=   64.3 t/s  enq= 2482.8 msg/s  p50=  57.76 ms  drain= 15.555s  (88.7 min)
+[135/135] rq-simple-redis  io_sleep  n=1000  w=4 #3: thr=   65.2 t/s  enq= 2600.3 msg/s  p50=  56.72 ms  drain= 15.329s  (89.0 min)
+ Container report-queue-worker-rq-1  Stopping
+ Container report-queue-worker-rq-2  Stopping
+ Container report-queue-worker-rq-3  Stopping
+ Container report-queue-worker-rq-4  Stopping
+ Container report-queue-worker-rq-3  Stopped
+ Container report-queue-worker-rq-3  Removing
+ Container report-queue-worker-rq-3  Removed
+ Container report-queue-worker-rq-4  Stopped
+ Container report-queue-worker-rq-4  Removing
+ Container report-queue-worker-rq-4  Removed
+ Container report-queue-worker-rq-2  Stopped
+ Container report-queue-worker-rq-2  Removing
+ Container report-queue-worker-rq-2  Removed
+ Container report-queue-worker-rq-1  Stopped
+ Container report-queue-worker-rq-1  Removing
+ Container report-queue-worker-rq-1  Removed
+ Container report-queue-worker-celery-1  Creating
+ Container report-queue-worker-celery-1  Created
+ Container report-queue-worker-celery-1  Starting
+ Container report-queue-worker-celery-1  Started
+ Container report-queue-api-1  Recreate
+ Container report-queue-api-1  Recreated
+ Container report-queue-api-1  Starting
+ Container report-queue-api-1  Started
+ Container report-queue-worker-rq-1  Creating
+ Container report-queue-worker-rq-1  Created
+ Container report-queue-worker-rq-1  Starting
+ Container report-queue-worker-rq-1  Started
+ Container report-queue-beat-1  Creating
+ Container report-queue-beat-1  Created
+ Container report-queue-beat-1  Starting
+ Container report-queue-beat-1  Started
+ Container report-queue-flower-1  Creating
+ Container report-queue-flower-1  Created
+ Container report-queue-flower-1  Starting
+ Container report-queue-flower-1  Started
 summary -> D:\nefu\python\report-queue\bench\results\summary.csv (45 cells)

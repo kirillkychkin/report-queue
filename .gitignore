@@ -18,6 +18,7 @@ artifacts/
 # но не промежуточные файлы
 slides/*.tmp
 ~$*.pptx
+~$*.docx
 
 # IDE / OS
 .idea/

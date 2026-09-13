@@ -107,3 +107,12 @@ docker compose exec -T api python -m bench.diagnose publish   # из чего с
 .venv/Scripts/python slides/build_talk.py
 .venv/Scripts/python slides/build_project.py
 ```
+
+Рядом — сопроводительные документы к защите (DOCX, собираются из тех же `slides/content/*.md`):
+`Речь доклада` (14 минут, привязка к слайдам и хронометраж), `Термины и определения` (≈90 терминов по темам),
+`Вопросы и ответы` (≈40 вероятных вопросов с ответами), `Сценарий демонстрации` (пошагово: команда → что показать →
+что сказать → что делать, если не сработало).
+
+```bash
+.venv/Scripts/python slides/build_docs.py
+```

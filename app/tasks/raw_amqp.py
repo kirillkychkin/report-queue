@@ -135,6 +135,8 @@ def consume() -> None:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    # pika на уровне INFO печатает служебные сообщения о сокетах — в демо они закрывают полезный вывод
+    logging.getLogger("pika").setLevel(logging.WARNING)
     mode = sys.argv[1] if len(sys.argv) > 1 else "consume"
     if mode == "produce":
         produce(int(sys.argv[2]) if len(sys.argv) > 2 else 3)

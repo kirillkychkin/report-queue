@@ -70,6 +70,26 @@ docker compose exec -e BROKER_URL=amqp://guest:guest@rabbitmq:5672// worker-cele
 docker compose exec -e BROKER_URL=amqp://guest:guest@rabbitmq:5672// worker-celery python -m app.tasks.raw_amqp produce 6
 ```
 
+## Эксперимент
+
+Матрица: 5 конфигураций (`celery-redis`, `celery-rabbitmq`, `celery-rabbitmq-confirm`, `rq-redis`, `rq-simple-redis`)
+× 3 вида задач (`noop`, `cpu_small`, `io_sleep`) × 1/2/4 воркера × 3 повтора = 135 прогонов (~90 минут).
+Каждый прогон разбит на фазы: постановка в остановленную очередь → разбор заранее наполненной очереди →
+замер задержки одиночных задач на пустой очереди.
+
+```bash
+.venv/Scripts/python -m bench.run_matrix              # полная матрица (фоном: таймаут терминала)
+.venv/Scripts/python -m bench.run_matrix --quick      # дымовой прогон, ~3 минуты
+.venv/Scripts/python -m bench.plot                    # графики и таблицы в bench/results/
+docker compose exec -T api python -m bench.diagnose publish   # из чего складывается цена постановки
+```
+
+Ключевые цифры (медианы, 1 → 4 воркера): накладные расходы очереди **1,8 мс** на задачу у Celery,
+3,5 мс у RQ `SimpleWorker`, **72 мс** у RQ с `fork`; `noop` 434 → 1497 (Celery+Redis) против 560 → 1744
+(Celery+RabbitMQ); на задачах от 50 мс все конфигурации без fork неразличимы (20 → 67); масштабирование ×3,0–4,1.
+Постановка: 1583 msg/s на Redis, 2333 на RabbitMQ — но с publisher confirms всего **210 msg/s**.
+Подробности, оговорки и разбор ошибок первой версии методики — в `docs/experiment.md`.
+
 ## Документы
 
 - `docs/architecture.md` — архитектура и обоснование решений
@@ -79,7 +99,7 @@ docker compose exec -e BROKER_URL=amqp://guest:guest@rabbitmq:5672// worker-cele
 
 ## Презентации
 
-`slides/talk.pptx` — доклад (10–15 мин, 20 слайдов), `slides/project.pptx` — демонстрация проекта (5 мин, 9 слайдов).
+`slides/talk.pptx` — доклад (10–15 мин, 21 слайд), `slides/project.pptx` — демонстрация проекта (5 мин, 9 слайдов).
 Тексты слайдов и заметки докладчика лежат в `slides/content/*.md`, оформление — в `slides/builder.py`; графики
 подтягиваются из `bench/results/`. Пересборка после правки текстов:
 

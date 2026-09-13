@@ -42,18 +42,36 @@ docker compose ps               # все 8 контейнеров Up, api и б�
 ## 2:20 — Отказоустойчивость: retry и chain (1 мин)
 
 ```bash
+NOTIFY_FAILURE_RATE=0.9 docker compose up -d --scale worker-celery=1 worker-celery   # чтобы retry был виден наверняка
 docker compose exec -T worker-celery python scripts/produce.py pipeline
 ```
 
-> «`chain`: отчёт → уведомление. Канал уведомлений падает с вероятностью 50 %. Видно RETRY: `autoretry_for` +
-> экспоненциальный backoff 2, 4, 8 с + jitter. `acks_late`: если убить воркер посреди задачи —»
+> «`chain`: отчёт → уведомление. Канал уведомлений «падает» — в выводе `retries: 3`, в логах `Retry in 1s… 7s`:
+> `autoretry_for` + `retry_backoff` + jitter (поэтому интервалы не ровно 2, 4, 8 — jitter их размазывает).
+> Теперь `acks_late`: убиваю воркер посреди задачи —»
 
 ```bash
-docker compose kill worker-celery   # (если 4 реплики — kill одну: docker kill report-queue-worker-celery-2)
-docker compose up -d worker-celery
+curl -s -X POST localhost:8000/reports -H 'Content-Type: application/json' -d '{"rows":1000000}'
+docker compose kill -s SIGQUIT worker-celery    # холодная остановка: Celery закрывает соединение
+docker compose logs worker-celery --tail 3      # «Cold shutdown» + «Restoring 1 unacknowledged message(s)»
+sleep 5 && docker compose up -d worker-celery   # sleep обязателен: контейнер должен успеть выйти
 ```
 
-> «— брокер вернёт неподтверждённую задачу, и она выполнится заново. Поэтому задачи идемпотентны: тот же id, тот же seed».
+> «`Restoring 1 unacknowledged message(s)` — задача вернулась в очередь. Новый воркер получает её снова,
+> с тем же `report_id`, и делает заново. Поэтому задачи обязаны быть идемпотентными: тот же id, тот же seed,
+> файлы перезаписываются тем же содержимым».
+
+Лог смотреть **до** перезапуска: `docker compose up -d` пересоздаёт контейнер, и вывод убитого воркера пропадает.
+
+После шага можно ничего не восстанавливать вручную: следующая команда демо (`BROKER_URL=… docker compose up -d …`)
+пересоздаёт воркер с обычным `NOTIFY_FAILURE_RATE=0.5` из `.env`.
+
+**Важно (и это хороший ответ на вопрос «а если воркер умер внезапно?»):** так работает только *холодная остановка*,
+когда процесс успевает закрыть соединение с брокером. Если процесс убить «жёстко» (`docker compose kill`, SIGKILL,
+паника ядра), соединение остаётся висеть, и задача вернётся в очередь только когда брокер это заметит:
+на **RabbitMQ** — по heartbeat (`broker_heartbeat=120` с, то есть до ~4 минут), на **Redis** — по `visibility_timeout`,
+а он по умолчанию **1 час**. Проверено: после `docker compose kill` задача на Redis 45 секунд оставалась в `STARTED`.
+Это одна из главных причин выбирать RabbitMQ для продакшена и уменьшать `visibility_timeout` на Redis.
 
 ## 3:20 — Переключение: RabbitMQ и RQ (1 мин)
 
@@ -95,4 +113,6 @@ docker compose exec -e BROKER_URL=amqp://guest:guest@rabbitmq:5672// worker-cele
 | `/health` → `degraded` | брокер не готов: `docker compose ps`, дождаться healthy |
 | После `--scale` Flower показывает старые воркеры | это кэш событий; `docker compose restart flower` |
 | RQ: 404 на статус сразу после заказа | нормально для RQ только если job уже удалён по TTL; иначе проверить `TASK_BACKEND` у `api` и `worker-rq` |
-| Вернуть всё в исходное | `docker compose down && docker compose up -d` (артефакты на volume сохраняются; `down -v` — с очисткой) |
+| После `kill` воркер не поднялся | контейнер ещё не успел выйти, когда пришла `up -d`: подождать 5 с и повторить `docker compose up -d worker-celery` |
+| Задача «висит» в `STARTED` после жёсткого `kill` | так и должно быть: соединение не закрыто, Redis вернёт задачу только через `visibility_timeout` (1 ч), RabbitMQ — по heartbeat (до ~4 мин). Для демо используется `kill -s SIGQUIT` |
+| Вернуть всё в исходное | `docker compose up -d` (перечитает `.env`); полностью — `docker compose down && docker compose up -d`, с очисткой данных — `down -v` |

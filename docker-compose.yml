@@ -18,6 +18,8 @@ x-app: &app
     RESULT_BACKEND_URL: ${RESULT_BACKEND_URL:-redis://redis-backend:6379/0}
     CELERY_EVENTS: ${CELERY_EVENTS:-true}
     BROKER_CONFIRM_PUBLISH: ${BROKER_CONFIRM_PUBLISH:-false}
+    # Вероятность сбоя уведомления: на демо поднимается, чтобы retry было видно наверняка
+    NOTIFY_FAILURE_RATE: ${NOTIFY_FAILURE_RATE:-0.5}
   volumes:
     - artifacts:/data/artifacts
   depends_on:

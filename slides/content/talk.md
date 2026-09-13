@@ -3,7 +3,6 @@ title: Очереди сообщений и фоновые задачи в Pytho
 subtitle: Celery / RQ, Redis / RabbitMQ, producer-consumer, распределённая обработка
 course: Разработка приложений на Python
 author: Кычкин Кирилл
-repo: github.com/kirillkychkin/report-queue
 date: 2026
 footer: Очереди сообщений и фоновые задачи в Python
 ---
@@ -320,9 +319,9 @@ class TaskBackend(Protocol):
 ## Спасибо за внимание
 > Вопросы
 
-- Репозиторий проекта: `github.com/kirillkychkin/report-queue`
 - Запуск демо одной командой: `docker compose up --build` → `http://localhost:8000`
-- В репозитории: `docs/architecture.md` (решения и альтернативы), `docs/experiment.md` (методика и данные), `docs/conclusions.md` (выводы), `bench/results/` (135 прогонов, графики).
+- В проекте: `docs/architecture.md` (решения и альтернативы), `docs/experiment.md` (методика и данные), `docs/conclusions.md` (выводы), `bench/results/` (135 прогонов, графики).
+- Код, документы и обе презентации — в репозитории проекта, ссылку пришлю отдельно.
 
 ::: notes
 Готовые ответы: почему TaskBackend, почему acks_late, почему две очереди, почему результат в файлах, почему Redis для демо и RabbitMQ для продакшена.
